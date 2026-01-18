@@ -5,8 +5,9 @@ public class Neko {
         // Starting message
         String message = """
                 ____________________________________________________________
-                 Hello! I'm Neko
-                 What can I do for you?
+Ad                  /\\_/\\\s
+                 ( o.o )  Hello! I'm Neko.
+                  > ^ <   I'm here to listen — what can I do for you?
                 ____________________________________________________________""";
         System.out.println(message);
 
@@ -17,7 +18,7 @@ public class Neko {
         // Scans input until input is "bye"
         while (!input.equals("bye")) {
             String echoMessage = "____________________________________________________________\n"
-                    + " "
+                    + " Neko heard: "
                     + input
                     + "\n____________________________________________________________";
             System.out.println(echoMessage);
@@ -25,9 +26,18 @@ public class Neko {
         }
 
         // End Message
-        String endMessage = "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
+        String endMessage = """
+                ____________________________________________________________
+                 Bye! Neko is curling up for a nap now.
+                 ⠀⠀⠀⠀⢀⡴⣄⠀⠀⠀⠀⢠⣄⠀⠀⠀⠀⠀⠀⠀⣼⣿⡟⠃⠀⠀⠀                                                                                                                                                                                       \s
+                 ⠀⠀⠀⣰⠋⠀⠈⠓⠒⠒⠒⠚⠈⢳⡄⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀                                                                                                                                                                                       \s
+                 ⠀⠀⣼⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣤⣤⣤⣤⣤⣿⣿⣄⠀⠀⠀⠀                                                                                                                                                                                       \s
+                 ⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⠀⠀⠀⠀⠀⠀⠙⣷⡴⠶⣦                                                                                                                                                                                       \s
+                 ⠀⠀⢷⡀⠀⠉⠉⠀⠀⠀⠉⠉⠀⠀⣠⡿⠀⠀⠀⢀⣀⣠⣤⠿⠞⠛⠋                                                                                                                                                                                       \s
+                 ⣠⠾⠋⠙⣶⠤⠤⠤⠤⣤⡤⠤⠤⠞⣠⡴⠶⠚⠋⠉⠁⠀⠀⠀⠀⠀⠀                                                                                                                                                                                       \s
+                 ⠛⠒⠛⠉⠉⠀⠀⠀⣴⠟⢃⡴⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                                                                                                                                                                       \s
+                 ⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠋⠀⠀
+                ____________________________________________________________""";
         System.out.println(endMessage);
     }
 }
