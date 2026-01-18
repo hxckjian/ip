@@ -2,13 +2,19 @@ import java.util.Scanner;
 
 public class Neko {
     public static void main(String[] args) {
-        String message = "____________________________________________________________\n"
-                + " Hello! I'm Neko\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________";
+        // Starting message
+        String message = """
+                ____________________________________________________________
+                 Hello! I'm Neko
+                 What can I do for you?
+                ____________________________________________________________""";
         System.out.println(message);
+
+        // Scans input
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+
+        // Scans input until input is "bye"
         while (!input.equals("bye")) {
             String echoMessage = "____________________________________________________________\n"
                     + " "
@@ -17,6 +23,8 @@ public class Neko {
             System.out.println(echoMessage);
             input = scanner.nextLine();
         }
+
+        // End Message
         String endMessage = "____________________________________________________________\n"
                 + " Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________";
