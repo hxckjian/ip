@@ -7,10 +7,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean getStatus() {
-        return this.isDone;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -21,5 +17,9 @@ public class Task {
 
     public void markUnDone() {
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
