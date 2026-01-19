@@ -5,7 +5,7 @@ public class Neko {
         // Starting message
         String message = """
                 ____________________________________________________________
-Ad                  /\\_/\\\s
+                  /\\_/\\\s
                  ( o.o )  Hello! I'm Neko.
                   > ^ <   I'm here to listen — what can I do for you?
                 ____________________________________________________________""";
@@ -15,13 +15,34 @@ Ad                  /\\_/\\\s
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
+        // String array of size 100
+        String[] dataArray = new String[100];
+        int currentIndex = 0;
+
         // Scans input until input is "bye"
         while (!input.equals("bye")) {
-            String echoMessage = "____________________________________________________________\n"
-                    + " Neko heard: "
-                    + input
-                    + "\n____________________________________________________________";
-            System.out.println(echoMessage);
+
+            if (input.equals("list")) {
+                // List out data
+                System.out.println("____________________________________________________________");
+                for (int i = 1; i <= currentIndex; i++) {
+                    System.out.println(i + ". " + dataArray[i - 1]);
+                }
+                System.out.println("____________________________________________________________");
+            } else {
+                // Echo message
+                String echoMessage = "____________________________________________________________\n"
+                        + " Neko added: "
+                        + input
+                        + "\n____________________________________________________________";
+                System.out.println(echoMessage);
+
+                // Add input into dataArray
+                dataArray[currentIndex] = input;
+                currentIndex++;
+            }
+
+            // Take next input
             input = scanner.nextLine();
         }
 
