@@ -32,20 +32,11 @@ public class Neko {
                 System.out.println("____________________________________________________________");
             } else if (input.equals("list")) {
                 // List out data
-                System.out.println("""
-                        ____________________________________________________________\n
-                        Here are the tasks in your list:""");
-                for (int i = 1; i <= currentIndex; i++) {
-                    System.out.println(i + ". " + dataArray[i - 1]);
-                }
-                System.out.println("____________________________________________________________");
+                String listOfData = generateListOfTasks(dataArray, currentIndex);
+                printListMessage(listOfData);
             } else {
                 // Echo message
-                String echoMessage = "____________________________________________________________\n"
-                        + " Neko added: "
-                        + input
-                        + "\n____________________________________________________________";
-                System.out.println(echoMessage);
+                printEchoMessage(input);
 
                 // Add input into dataArray
                 Task task = new Task(input);
@@ -71,6 +62,25 @@ public class Neko {
         System.out.println(message);
     }
 
+    public static void printListMessage(String list) {
+        System.out.println("""
+                        ____________________________________________________________
+                        Here are the tasks in your list:""");
+        System.out.println(list);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static String generateListOfTasks(Task[] tasks, int currentIndex) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= currentIndex; i++) {
+            sb.append(i).append(". ").append(tasks[i - 1]);
+            if (i != currentIndex) {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
     public static void printEndMessage() {
         String endMessage = """
                 ____________________________________________________________
@@ -85,5 +95,13 @@ public class Neko {
                  ⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠋⠀⠀
                 ____________________________________________________________""";
         System.out.println(endMessage);
+    }
+
+    public static void printEchoMessage(String input) {
+        String echoMessage = "____________________________________________________________\n"
+                + " Neko added: "
+                + input
+                + "\n____________________________________________________________";
+        System.out.println(echoMessage);
     }
 }
