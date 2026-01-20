@@ -28,8 +28,7 @@ public class Neko {
                     dataArray[index - 1].markUnDone();
                     System.out.println(" OK, I've marked this task as not done yet:");
                 }
-                System.out.println("   [" + dataArray[index - 1].getStatusIcon()
-                        +  "] " + dataArray[index - 1].getDescription());
+                System.out.println(dataArray[index - 1]);
                 System.out.println("____________________________________________________________");
             } else if (input.equals("list")) {
                 // List out data
@@ -37,8 +36,7 @@ public class Neko {
                         ____________________________________________________________\n
                         Here are the tasks in your list:""");
                 for (int i = 1; i <= currentIndex; i++) {
-                    System.out.println(i + ". [" + dataArray[i - 1].getStatusIcon()
-                            +  "] " + dataArray[i - 1].getDescription());
+                    System.out.println(i + ". " + dataArray[i - 1]);
                 }
                 System.out.println("____________________________________________________________");
             } else {
