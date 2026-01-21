@@ -6,7 +6,7 @@ public class Neko {
         MARK, UNMARK, DEFAULT
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NekoException {
         // Starting message
         printGreetingMessage();
 
@@ -20,122 +20,79 @@ public class Neko {
 
         // Scans input until input is "bye"
         while (!input.equals("bye")) {
-            String[] split = input.split(" ", 2);
+            String[] split = input.trim().split(" ", 2);
             String inputMessage = split[0].trim().toUpperCase();
             InputType inputType;
+
+            // Check for invalid input
             try {
                 inputType = InputType.valueOf(inputMessage);
+
+                switch (inputType) {
+                    case DEADLINE: {
+                        // Add deadline
+                        Task deadline = handleDeadline(split);
+
+                        // Add into list
+                        dataArray[currentIndex++] = deadline;
+
+                        // Echo Message
+                        printEchoMessage(deadline.toString(), currentIndex);
+                        break;
+                    }
+                    case EVENT: {
+                        // Add event
+                        Task event = handleEvent(split);
+
+                        // Add into list
+                        dataArray[currentIndex++] = event;
+
+                        // Echo Message
+                        printEchoMessage(event.toString(), currentIndex);
+                        break;
+                    }
+                    case TODO: {
+                        // Add todo
+                        Task todo = handleToDo(split);
+
+                        // Add into list
+                        dataArray[currentIndex++] = todo;
+
+                        // Echo Message
+                        printEchoMessage(todo.toString(), currentIndex);
+                        break;
+                    }
+                    case LIST: {
+                        // List out data
+                        String listOfData = generateListOfTasks(dataArray, currentIndex);
+                        printListMessage(listOfData);
+                        break;
+                    }
+                    case MARK: {
+                        System.out.println("____________________________________________________________");
+                        int markIndex = Integer.parseInt(split[1]);
+                        dataArray[markIndex - 1].markDone();
+                        System.out.println(" Nice! I've marked this task as done:");
+                        System.out.println(dataArray[markIndex - 1]);
+                        System.out.println("____________________________________________________________");
+                        break;
+                    }
+                    case UNMARK: {
+                        System.out.println("____________________________________________________________");
+                        int unMarkIndex = Integer.parseInt(split[1]);
+                        dataArray[unMarkIndex - 1].markUnDone();
+                        System.out.println(" OK, I've marked this task as not done yet:");
+                        System.out.println(dataArray[unMarkIndex - 1]);
+                        System.out.println("____________________________________________________________");
+                        break;
+                    }
+                }
             } catch (IllegalArgumentException e) {
-                inputType = InputType.DEFAULT;
+//                inputType = InputType.DEFAULT;
+                handleIncorrectStatement();
+            } catch (NekoException e) {
+                System.out.println(e.getMessage());
             }
-
-            switch (inputType) {
-                case DEADLINE: {
-                    String[] content = split[1].split("/by");
-                    String description = content[0].trim();
-                    String by = content[1].trim();
-
-                    // Add deadline
-                    Task deadline = new Deadline(description, by);
-                    dataArray[currentIndex] = deadline;
-                    currentIndex++;
-
-                    // Echo Message
-                    printEchoMessage(deadline.toString(), currentIndex);
-                    break;
-                }
-                case EVENT: {
-                    String[] content = split[1].split("/from");
-                    String description = content[0].trim();
-                    String[] date = content[1].split("/to");
-                    String from = date[0].trim();
-                    String by = date[1].trim();
-
-                    // Add deadline
-                    Task event = new Event(description, from, by);
-                    dataArray[currentIndex] = event;
-                    currentIndex++;
-
-                    // Echo Message
-                    printEchoMessage(event.toString(), currentIndex);
-                    break;
-                }
-                case TODO: {
-                    String description = split[1].trim();
-
-                    // Add deadline
-                    Task todo = new ToDo(description);
-                    dataArray[currentIndex] = todo;
-                    currentIndex++;
-
-                    // Echo Message
-                    printEchoMessage(todo.toString(), currentIndex);
-                    break;
-                }
-                case LIST: {
-                    // List out data
-                    String listOfData = generateListOfTasks(dataArray, currentIndex);
-                    printListMessage(listOfData);
-                    break;
-                }
-                case MARK: {
-                    System.out.println("____________________________________________________________");
-                    int markIndex = Integer.parseInt(split[1]);
-                    dataArray[markIndex - 1].markDone();
-                    System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println(dataArray[markIndex - 1]);
-                    System.out.println("____________________________________________________________");
-                    break;
-                }
-                case UNMARK: {
-                    System.out.println("____________________________________________________________");
-                    int unMarkIndex = Integer.parseInt(split[1]);
-                    dataArray[unMarkIndex - 1].markUnDone();
-                    System.out.println(" OK, I've marked this task as not done yet:");
-                    System.out.println(dataArray[unMarkIndex - 1]);
-                    System.out.println("____________________________________________________________");
-                    break;
-                }
-                default: {
-                    // Echo Message
-                    printEchoMessage(input, currentIndex + 1);
-
-                    // Add input into dataArray
-                    Task task = new Task(input);
-                    dataArray[currentIndex] = task;
-                    currentIndex++;
-                    break;
-                }
-            }
-
-//            if (split.length >= 2) {
-//                // Assume second element is Integer first on Level-3
-//                int index = Integer.parseInt(split[1]);
-//                System.out.println("____________________________________________________________");
-//                if (split[0].equals("mark")) {
-//                    dataArray[index - 1].markDone();
-//                    System.out.println(" Nice! I've marked this task as done:");
-//                } else if (split[0].equals("unmark")) {
-//                    dataArray[index - 1].markUnDone();
-//                    System.out.println(" OK, I've marked this task as not done yet:");
-//                }
-//                System.out.println(dataArray[index - 1]);
-//                System.out.println("____________________________________________________________");
-//            } else if (input.equals("list")) {
-//                // List out data
-//                String listOfData = generateListOfTasks(dataArray, currentIndex);
-//                printListMessage(listOfData);
-//            } else {
-//                // Echo message
-//                printEchoMessage(input);
-//
-//                // Add input into dataArray
-//                Task task = new Task(input);
-//                dataArray[currentIndex] = task;
-//                currentIndex++;
-//            }
-
-            // Take next input
             input = scanner.nextLine();
         }
 
@@ -155,19 +112,22 @@ public class Neko {
 
     public static void printListMessage(String list) {
         System.out.println("""
-                        ____________________________________________________________
-                        Here are the tasks in your list:""");
+                ____________________________________________________________
+                Here are the tasks in your list:""");
         System.out.println(list);
         System.out.println("____________________________________________________________");
     }
 
-    public static String generateListOfTasks(Task[] tasks, int currentIndex) {
+    public static String generateListOfTasks(Task[] tasks, int currentIndex) throws NekoException {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= currentIndex; i++) {
             sb.append(i).append(". ").append(tasks[i - 1]);
             if (i != currentIndex) {
                 sb.append("\n");
             }
+        }
+        if (sb.isEmpty()) {
+            throw new NekoException("List is empty!");
         }
         return sb.toString();
     }
@@ -197,4 +157,99 @@ public class Neko {
         System.out.println(echoMessage);
     }
 
+    public static void handleIncorrectStatement() throws NekoException {
+        System.out.println("""
+                ____________________________________________________________
+                 I pawed at it, sniffed it, and… nope. (￣ω￣;)
+                 I don’t know what that means.
+                ____________________________________________________________
+                """);
+    }
+
+    public static Task handleToDo(String[] content) throws NekoException {
+        if (content.length == 1) {
+            throw new NekoException("Oops! A todo's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        }
+        return new ToDo(content[1].trim());
+    }
+
+    public static Task handleEvent(String[] split) throws NekoException {
+        if (split.length == 1) {
+            throw new NekoException("Oops! The event's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        }
+        String[] afterCommandArray = split[1].trim().split(" ");
+        int numFrom = countNumDelimiter(afterCommandArray, "/from");
+        int numTo = countNumDelimiter(afterCommandArray, "/to");
+
+        int indexFrom = indexOfDelimiter(afterCommandArray, "/from");
+        int indexTo = indexOfDelimiter(afterCommandArray, "/to");
+
+        if (numFrom > 1) {
+            throw new NekoException("Oops! There's more than one /from, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (indexFrom == -1) {
+            throw new NekoException("Oops! There's no /from, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (numTo > 1) {
+            throw new NekoException("Oops! There's more than one /to, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (indexTo == -1) {
+            throw new NekoException("Oops! There's no /to, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (afterCommandArray[0].equals("/from")) {
+            throw new NekoException("Oops! The event's content is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (afterCommandArray[afterCommandArray.length - 1].equals("/to")) {
+            throw new NekoException("Oops! The deadline's /by is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (indexFrom > indexTo) {
+            throw new NekoException("Oops! The deadline's /from is after /to, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        }
+        String[] splitFrom = split[1].split("/from");
+        String description = splitFrom[0].trim();
+        String[] date = splitFrom[1].split("/to");
+
+        String from = date[0].trim();
+        String by = date[1].trim();
+
+        // Add event
+        return new Event(description, from, by);
+    }
+
+    public static Task handleDeadline(String[] split) throws NekoException {
+        if (split.length == 1) {
+            throw new NekoException("Oops! The deadline's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        }
+        String[] afterCommandArray = split[1].trim().split(" ");
+        int numBy = countNumDelimiter(afterCommandArray, "/by");
+        if (numBy > 1) {
+            throw new NekoException("Oops! There's more than one deadline, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (numBy == 0) {
+            throw new NekoException("Oops! There's no deadline, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (afterCommandArray[0].equals("/by")) {
+            throw new NekoException("Oops! The deadline's content is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        } else if (afterCommandArray[afterCommandArray.length - 1].equals("/by")) {
+            throw new NekoException("Oops! The deadline's /by is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        }
+
+        String[] afterCommandSplitBy = split[1].trim().split("/by");
+        String description = afterCommandSplitBy[0].trim();
+        String by = afterCommandSplitBy[1].trim();
+
+        // Add deadline
+        return new Deadline(description, by);
+    }
+
+    public static int countNumDelimiter(String[] array, String del) {
+        int num = 0;
+        for (String s : array) {
+            if (s.equals(del)) {
+                num++;
+            }
+        }
+        return num;
+    }
+
+    public static int indexOfDelimiter(String[] array, String del) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(del)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
