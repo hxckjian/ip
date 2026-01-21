@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Neko {
     public enum InputType {
         DEADLINE, EVENT, TODO, LIST,
-        MARK, UNMARK, DEFAULT
+        MARK, UNMARK, DELETE, DEFAULT
     }
 
     public static void main(String[] args) throws NekoException {
@@ -15,8 +16,7 @@ public class Neko {
         String input = scanner.nextLine();
 
         // String array of size 100
-        Task[] dataArray = new Task[100];
-        int currentIndex = 0;
+        ArrayList<Task> arrList = new ArrayList<>();
 
         // Scans input until input is "bye"
         while (!input.equals("bye")) {
@@ -34,10 +34,9 @@ public class Neko {
                         Task deadline = handleDeadline(split);
 
                         // Add into list
-                        dataArray[currentIndex++] = deadline;
-
+                        arrList.add(deadline);
                         // Echo Message
-                        printEchoMessage(deadline.toString(), currentIndex);
+                        printEchoMessage(deadline.toString(), arrList.size());
                         break;
                     }
                     case EVENT: {
@@ -45,46 +44,54 @@ public class Neko {
                         Task event = handleEvent(split);
 
                         // Add into list
-                        dataArray[currentIndex++] = event;
+                        arrList.add(event);
 
                         // Echo Message
-                        printEchoMessage(event.toString(), currentIndex);
+                        printEchoMessage(event.toString(), arrList.size());
                         break;
                     }
                     case TODO: {
-                        // Add todo
+                        // Add todo's task
                         Task todo = handleToDo(split);
 
                         // Add into list
-                        dataArray[currentIndex++] = todo;
-
+                        arrList.add(todo);
                         // Echo Message
-                        printEchoMessage(todo.toString(), currentIndex);
+                        printEchoMessage(todo.toString(), arrList.size());
                         break;
                     }
                     case LIST: {
                         // List out data
-                        String listOfData = generateListOfTasks(dataArray, currentIndex);
+                        String listOfData = generateListOfTasks(arrList);
                         printListMessage(listOfData);
                         break;
                     }
                     case MARK: {
                         System.out.println("____________________________________________________________");
                         int markIndex = Integer.parseInt(split[1]);
-                        dataArray[markIndex - 1].markDone();
+                        arrList.get(markIndex - 1).markDone();
                         System.out.println(" Nice! I've marked this task as done:");
-                        System.out.println(dataArray[markIndex - 1]);
+                        System.out.println(arrList.get(markIndex - 1));
                         System.out.println("____________________________________________________________");
                         break;
                     }
                     case UNMARK: {
                         System.out.println("____________________________________________________________");
                         int unMarkIndex = Integer.parseInt(split[1]);
-                        dataArray[unMarkIndex - 1].markUnDone();
+                        arrList.get(unMarkIndex - 1).markUnDone();
                         System.out.println(" OK, I've marked this task as not done yet:");
-                        System.out.println(dataArray[unMarkIndex - 1]);
+                        System.out.println(arrList.get(unMarkIndex - 1));
                         System.out.println("____________________________________________________________");
                         break;
+                    }
+                    case DELETE: {
+                        System.out.println("____________________________________________________________");
+                        int deleteIndex = Integer.parseInt(split[1]);
+                        System.out.println(" Roger nya! I have deleted this task:");
+                        System.out.println(arrList.get(deleteIndex - 1));
+                        arrList.remove(deleteIndex - 1);
+                        System.out.println("Now you have " + arrList.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
                     }
                 }
             } catch (IllegalArgumentException e) {
@@ -118,11 +125,11 @@ public class Neko {
         System.out.println("____________________________________________________________");
     }
 
-    public static String generateListOfTasks(Task[] tasks, int currentIndex) throws NekoException {
+    public static String generateListOfTasks(ArrayList<Task> arrList) throws NekoException {
         StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= currentIndex; i++) {
-            sb.append(i).append(". ").append(tasks[i - 1]);
-            if (i != currentIndex) {
+        for (int i = 1; i <= arrList.size(); i++) {
+            sb.append(i).append(". ").append(arrList.get(i - 1));
+            if (i != (arrList.size())) {
                 sb.append("\n");
             }
         }
@@ -148,11 +155,11 @@ public class Neko {
         System.out.println(endMessage);
     }
 
-    public static void printEchoMessage(String input, int currentIndex) {
+    public static void printEchoMessage(String input, int length) {
         String echoMessage = "____________________________________________________________\n"
                 + " Neko added this task:\n"
                 + input
-                + "\nNow you have " + currentIndex +
+                + "\nNow you have " + length +
                 " tasks in the list.\n____________________________________________________________";
         System.out.println(echoMessage);
     }
