@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,16 +13,24 @@ public class Neko {
         MARK, UNMARK, DELETE, DEFAULT
     }
 
-    public static void main(String[] args) throws NekoException {
+    public static void main(String[] args) {
+        // String array of size 100
+        ArrayList<Task> arrList = new ArrayList<>();
+
+        // Get data from file path
+        try {
+            setupData(arrList);
+        } catch (NekoException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
         // Starting message
         printGreetingMessage();
 
         // Scans input
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-
-        // String array of size 100
-        ArrayList<Task> arrList = new ArrayList<>();
 
         // Scans input until input is "bye"
         while (!input.equals("bye")) {
@@ -29,73 +43,54 @@ public class Neko {
                 inputType = InputType.valueOf(inputMessage);
 
                 switch (inputType) {
-                    case DEADLINE: {
-                        // Add deadline
-                        Task deadline = handleDeadline(split);
+                case DEADLINE:
+                    // Add deadline
+                    Task deadline = handleDeadline(split);
 
-                        // Add into list
-                        arrList.add(deadline);
-                        // Echo Message
-                        printEchoMessage(deadline.toString(), arrList.size());
-                        break;
-                    }
-                    case EVENT: {
-                        // Add event
-                        Task event = handleEvent(split);
+                    // Add into list
+                    arrList.add(deadline);
 
-                        // Add into list
-                        arrList.add(event);
+                    // Echo Message
+                    printEchoMessage(deadline.toString(), arrList.size());
+                    break;
+                case EVENT:
+                    // Add event
+                    Task event = handleEvent(split);
 
-                        // Echo Message
-                        printEchoMessage(event.toString(), arrList.size());
-                        break;
-                    }
-                    case TODO: {
-                        // Add todo's task
-                        Task todo = handleToDo(split);
+                    // Add into list
+                    arrList.add(event);
 
-                        // Add into list
-                        arrList.add(todo);
-                        // Echo Message
-                        printEchoMessage(todo.toString(), arrList.size());
-                        break;
-                    }
-                    case LIST: {
-                        // List out data
-                        String listOfData = generateListOfTasks(arrList);
-                        printListMessage(listOfData);
-                        break;
-                    }
-                    case MARK: {
-                        System.out.println("____________________________________________________________");
-                        int markIndex = Integer.parseInt(split[1]);
-                        arrList.get(markIndex - 1).markDone();
-                        System.out.println(" Nice! I've marked this task as done:");
-                        System.out.println(arrList.get(markIndex - 1));
-                        System.out.println("____________________________________________________________");
-                        break;
-                    }
-                    case UNMARK: {
-                        System.out.println("____________________________________________________________");
-                        int unMarkIndex = Integer.parseInt(split[1]);
-                        arrList.get(unMarkIndex - 1).markUnDone();
-                        System.out.println(" OK, I've marked this task as not done yet:");
-                        System.out.println(arrList.get(unMarkIndex - 1));
-                        System.out.println("____________________________________________________________");
-                        break;
-                    }
-                    case DELETE: {
-                        System.out.println("____________________________________________________________");
-                        int deleteIndex = Integer.parseInt(split[1]);
-                        System.out.println(" Roger nya! I have deleted this task:");
-                        System.out.println(arrList.get(deleteIndex - 1));
-                        arrList.remove(deleteIndex - 1);
-                        System.out.println("Now you have " + arrList.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
-                    }
+                    // Echo Message
+                    printEchoMessage(event.toString(), arrList.size());
+                    break;
+                case TODO:
+                    // Add todo's task
+                    Task todo = handleToDo(split);
+
+                    // Add into list
+                    arrList.add(todo);
+
+                    // Echo Message
+                    printEchoMessage(todo.toString(), arrList.size());
+                    break;
+                case LIST:
+                    // List out data
+                    String listOfData = generateListOfTasks(arrList);
+                    printListMessage(listOfData);
+                    break;
+                case MARK:
+                    int markIndex = Integer.parseInt(split[1]);
+                    markSpecifiedTask(arrList, markIndex);
+                    break;
+                case UNMARK:
+                    int unMarkIndex = Integer.parseInt(split[1]);
+                    unMarkSpecifiedTask(arrList, unMarkIndex);
+                    break;
+                case DELETE:
+                    int deleteIndex = Integer.parseInt(split[1]);
+                    deleteTask(arrList, deleteIndex);
                 }
             } catch (IllegalArgumentException e) {
-//                inputType = InputType.DEFAULT;
                 handleIncorrectStatement();
             } catch (NekoException e) {
                 System.out.println(e.getMessage());
@@ -105,6 +100,13 @@ public class Neko {
 
         // End Message
         printEndMessage();
+
+        // Save data
+        try {
+            saveData(arrList);
+        } catch (NekoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void printGreetingMessage() {
@@ -164,7 +166,7 @@ public class Neko {
         System.out.println(echoMessage);
     }
 
-    public static void handleIncorrectStatement() throws NekoException {
+    public static void handleIncorrectStatement() {
         System.out.println("""
                 ____________________________________________________________
                  I pawed at it, sniffed it, and… nope. (￣ω￣;)
@@ -258,5 +260,81 @@ public class Neko {
             }
         }
         return -1;
+    }
+
+    public static void markSpecifiedTask(ArrayList<Task> taskArr, int index) {
+        taskArr.get(index - 1).markDone();
+        System.out.println("____________________________________________________________");
+        System.out.println(" Nice! I've marked this task as done:");
+        System.out.println(taskArr.get(index - 1));
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void unMarkSpecifiedTask(ArrayList<Task> taskArr, int index) {
+        taskArr.get(index - 1).markUnDone();
+        System.out.println("____________________________________________________________");
+        System.out.println(" OK, I've marked this task as not done yet:");
+        System.out.println(taskArr.get(index - 1));
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void deleteTask(ArrayList<Task> taskArr, int index) {
+        System.out.println("____________________________________________________________");
+        System.out.println(" Roger nya! I have deleted this task:");
+        System.out.println(taskArr.get(index - 1));
+        taskArr.remove(index - 1);
+        System.out.println("Now you have " + taskArr.size() + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void setupData(ArrayList<Task> taskArr) throws NekoException {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
+                    + "/src/main/data/neko1.txt"));
+            String line = br.readLine();
+
+            while (line != null) {
+                String[] split = line.split(" \\| ");
+                String type = split[0];
+                String description = split[2];
+
+                boolean isDone = split[1].equals("1");
+
+                switch (type) {
+                    case "T":
+                        Task todo = new ToDo(description, isDone);
+                        taskArr.add(todo);
+                        break;
+                    case "D":
+                        String by = split[3];
+                        Task deadline = new Deadline(description, by, isDone);
+                        taskArr.add(deadline);
+                        break;
+                    case "E":
+                        String from = split[3];
+                        String to = split[4];
+                        Task event = new Event(description, from, to, isDone);
+                        taskArr.add(event);
+                }
+                line = br.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            throw new NekoException("Meow! I can't find neko.txt in my data folder!");
+        } catch (IOException e) {
+            throw new NekoException("An I/O error occurred nya!");
+        }
+    }
+
+    public static void saveData(ArrayList<Task> taskArr) throws NekoException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir")
+                + "/src/main/data/neko.txt", false))) {
+            for (Task task : taskArr) {
+                writer.write(task.formatIntoData());
+                writer.newLine();
+            }
+        }
+        catch (IOException e) {
+            throw new NekoException("I tried to write to the file but the file ran away…");
+        }
     }
 }
