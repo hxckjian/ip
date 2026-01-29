@@ -1,14 +1,19 @@
-package command;
+package neko.command;
 
 import neko.NekoException;
 import neko.Storage;
 import neko.TaskList;
 import neko.Ui;
-import task.Task;
 
-public class ListCommand extends Command {
+public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
-        ui.printListMessage(tasks.toString());
+        storage.write(tasks);
+        ui.printEndMessage();
+    }
+
+    @Override
+    public boolean isExit() {
+        return true;
     }
 }

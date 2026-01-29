@@ -1,8 +1,8 @@
 package neko;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
+import neko.task.Deadline;
+import neko.task.Event;
+import neko.task.Task;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

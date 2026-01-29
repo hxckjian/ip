@@ -1,12 +1,12 @@
 package neko;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
+import neko.task.Deadline;
+import neko.task.Event;
+import neko.task.Task;
 
 import java.time.LocalDate;
 
-import command.*;
+import neko.command.*;
 
 public class Parser {
     private enum InputType {
@@ -25,7 +25,7 @@ public class Parser {
 
             switch (inputType) {
             case TODO:
-//                // Add todo's task
+//                // Add todo's neko.task
 //                Task todo = handleToDo(split);
 //
 //                // Add into list

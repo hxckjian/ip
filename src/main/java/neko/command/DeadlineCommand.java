@@ -1,10 +1,10 @@
-package command;
+package neko.command;
 
 import neko.NekoException;
 import neko.Storage;
 import neko.TaskList;
 import neko.Ui;
-import task.Task;
+import neko.task.Task;
 
 public class DeadlineCommand extends Command {
     private final Task deadline;

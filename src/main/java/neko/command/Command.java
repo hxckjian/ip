@@ -1,4 +1,4 @@
-package command;
+package neko.command;
 
 import neko.NekoException;
 import neko.TaskList;
