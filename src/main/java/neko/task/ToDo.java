@@ -1,6 +1,4 @@
-package neko;
-
-import neko.task.Task;
+package neko.task;
 
 public class ToDo extends Task {
     public ToDo(String description) {
