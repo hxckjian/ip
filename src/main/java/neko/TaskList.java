@@ -1,4 +1,6 @@
-package java;
+package neko;
+
+import task.Task;
 
 import java.util.ArrayList;
 
@@ -13,9 +15,8 @@ public class TaskList {
         this.taskArr = new ArrayList<>();
     }
 
-    public Task addTask(Task task) {
+    public void addTask(Task task) {
         this.taskArr.add(task);
-        return task;
     }
 
     public void removeTask(int inputIndex) {
@@ -34,6 +35,14 @@ public class TaskList {
         return this.taskArr.size();
     }
 
+    public ArrayList<Task> getTaskArr() {
+        return this.taskArr;
+    }
+
+    public Task getTask(int index) {
+        return this.taskArr.get(index);
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= this.taskArr.size(); i++) {
@@ -42,9 +51,6 @@ public class TaskList {
                 sb.append("\n");
             }
         }
-//        if (sb.isEmpty()) {
-//            throw new NekoException("List is empty!");
-//        }
         return sb.toString();
     }
 }

@@ -1,3 +1,7 @@
+package neko;
+
+import task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -29,24 +33,28 @@ public class Ui {
         this.showDividerLine();
     }
 
-    public void printListMessage(String list) {
+    public void printListMessage(String list) throws NekoException {
         this.showDividerLine();
-        System.out.println("Here are the tasks in your list:");
-        System.out.println(list);
+        if (list.isEmpty()) {
+            throw new NekoException("The list is empty!");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            System.out.println(list);
+        }
         this.showDividerLine();
     }
 
-    public void printEchoMessage(String input, int length) {
+    public void showAddMessage(Task task, int length) {
         this.showDividerLine();
         String echoMessage = " Neko added this task:\n"
-                + input
+                + task
                 + "\nNow you have " + length +
                 " tasks in the list.";
         System.out.println(echoMessage);
         this.showDividerLine();
     }
 
-    public void handleIncorrectStatement() {
+    public void showIncorrectStatement() {
         this.showDividerLine();
         System.out.println("""
                  I pawed at it, sniffed it, and… nope. (￣ω￣;)
