@@ -24,7 +24,7 @@ public class Storage {
     public ArrayList<Task> load() throws NekoException {
         try {
             BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
-                    + "/src/main/data/neko.txt"));
+                    + "/src/main/" + filepath));
             String line = br.readLine();
 
             ArrayList<Task> taskArr = new ArrayList<>();
