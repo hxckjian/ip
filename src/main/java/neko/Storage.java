@@ -3,6 +3,7 @@ package neko;
 import neko.task.Deadline;
 import neko.task.Event;
 import neko.task.Task;
+import neko.task.ToDo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
