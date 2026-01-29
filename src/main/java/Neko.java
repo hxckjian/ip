@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -213,10 +215,13 @@ public class Neko {
         String[] date = splitFrom[1].split("/to");
 
         String from = date[0].trim();
-        String by = date[1].trim();
+        String to = date[1].trim();
+
+        LocalDate dateFrom = parseTextIntoDate(from);
+        LocalDate dateTo = parseTextIntoDate(to);
 
         // Add event
-        return new Event(description, from, by);
+        return new Event(description, dateFrom, dateTo);
     }
 
     public static Task handleDeadline(String[] split) throws NekoException {
@@ -239,8 +244,19 @@ public class Neko {
         String description = afterCommandSplitBy[0].trim();
         String by = afterCommandSplitBy[1].trim();
 
+        // format "by" data into LocalDate
+        LocalDate date = parseTextIntoDate(by);
+
         // Add deadline
-        return new Deadline(description, by);
+        return new Deadline(description, date);
+    }
+
+    public static LocalDate parseTextIntoDate(String text) throws NekoException {
+        try {
+            return LocalDate.parse(text);
+        } catch (DateTimeParseException e) {
+            throw new NekoException("What's that? Please input in yyyy-mm-dd format!");
+        }
     }
 
     public static int countNumDelimiter(String[] array, String del) {
@@ -290,7 +306,7 @@ public class Neko {
     public static void setupData(ArrayList<Task> taskArr) throws NekoException {
         try {
             BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
-                    + "/src/main/data/neko1.txt"));
+                    + "/src/main/data/neko.txt"));
             String line = br.readLine();
 
             while (line != null) {
@@ -307,13 +323,16 @@ public class Neko {
                         break;
                     case "D":
                         String by = split[3];
-                        Task deadline = new Deadline(description, by, isDone);
+                        LocalDate date = parseTextIntoDate(by);
+                        Task deadline = new Deadline(description, date, isDone);
                         taskArr.add(deadline);
                         break;
                     case "E":
                         String from = split[3];
                         String to = split[4];
-                        Task event = new Event(description, from, to, isDone);
+                        LocalDate dateFrom = parseTextIntoDate(from);
+                        LocalDate dateTo = parseTextIntoDate(to);
+                        Task event = new Event(description, dateFrom, dateTo, isDone);
                         taskArr.add(event);
                 }
                 line = br.readLine();
