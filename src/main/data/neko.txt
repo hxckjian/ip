@@ -1,4 +1,5 @@
 T | 1 | read book
-D | 1 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | 4pm
+D | 0 | return book | 2020-12-20
+E | 0 | project meeting | 2016-10-18 | 2020-06-24
 T | 1 | kill sukuna
+D | 1 | destroy 20 fingers | 2022-05-10
