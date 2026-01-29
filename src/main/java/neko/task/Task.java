@@ -1,4 +1,4 @@
-package task;
+package neko.task;
 
 public class Task {
     private String description;

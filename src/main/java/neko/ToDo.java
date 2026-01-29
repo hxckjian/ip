@@ -1,6 +1,6 @@
 package neko;
 
-import task.Task;
+import neko.task.Task;
 
 public class ToDo extends Task {
     public ToDo(String description) {
