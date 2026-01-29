@@ -26,57 +26,28 @@ public class Parser {
 
             switch (inputType) {
             case TODO:
-//                // Add todo's neko.task
-//                Task todo = handleToDo(split);
-//
-//                // Add into list
-//                arrList.add(todo);
-//
-//                // Echo Message
-//                printEchoMessage(todo.toString(), arrList.size());
                 return parseTodo(split);
             case DEADLINE:
-//                // Add deadline
-//                Task deadline = handleDeadline(split);
-//
-//                // Add into list
-//                arrList.add(deadline);
-//
-//                // Echo Message
-//                printEchoMessage(deadline.toString(), arrList.size());
                 return parseDeadline(split);
             case EVENT:
-//                // Add event
-//                Task event = handleEvent(split);
-//
-//                // Add into list
-//                arrList.add(event);
-//
-//                // Echo Message
-//                printEchoMessage(event.toString(), arrList.size());
                 return parseEvent(split);
             case LIST:
-                // List out data
-//                String listOfData = generateListOfTasks(arrList);
-//                printListMessage(listOfData);
                 return parseList();
             case MARK:
-//                int markIndex = Integer.parseInt(split[1]);
-//                markSpecifiedTask(arrList, markIndex);
                 int markIndex = Integer.parseInt(split[1]);
                 return parseMark(markIndex);
             case UNMARK:
-//                int unMarkIndex = Integer.parseInt(split[1]);
-//                unMarkSpecifiedTask(arrList, unMarkIndex);
                 int unMarkIndex = Integer.parseInt(split[1]);
                 return parseUnmark(unMarkIndex);
             case DELETE:
-//                int deleteIndex = Integer.parseInt(split[1]);
-//                deleteTask(arrList, deleteIndex);
                 int deleteIndex = Integer.parseInt(split[1]);
                 return parseDelete(deleteIndex);
             case BYE:
                 return parseBye();
+            default:
+                throw new NekoException("""
+                        This command looks weird~
+                        No clue what it means!""");
             }
         } catch (IllegalArgumentException e) {
             throw new NekoException("""
@@ -84,7 +55,6 @@ public class Parser {
                  I don’t know what that means.
                 """);
         }
-        return null;
     }
 
     public static Command parseTodo(String[] content) throws NekoException {
