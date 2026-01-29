@@ -1,6 +1,6 @@
 package neko;
 
-import task.Task;
+import neko.task.Task;
 
 import java.util.ArrayList;
 

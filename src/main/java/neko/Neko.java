@@ -1,6 +1,6 @@
 package neko;
 
-import command.Command;
+import neko.command.Command;
 
 public class Neko {
     public enum InputType {
