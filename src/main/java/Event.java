@@ -1,26 +1,31 @@
-public class Event extends Task {
-    private String from;
-    private String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    private LocalDate from;
+    private LocalDate to;
+
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
-        this.by = to;
+        this.to = to;
     }
 
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, LocalDate from, LocalDate to, boolean isDone) {
         super(description, isDone);
         this.from = from;
-        this.by = to;
+        this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + by + ")";
+        String formattedDateFrom = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String formattedDateTo = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[E]" + super.toString() + " (from: " + formattedDateFrom + " to: " + formattedDateTo + ")";
     }
 
     @Override
     public String formatIntoData() {
-        return "E | " + super.formatIntoData() + " | " + this.from + " | " + this.by;
+        return "E | " + super.formatIntoData() + " | " + this.from + " | " + this.to;
     }
 }
