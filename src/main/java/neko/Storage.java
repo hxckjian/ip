@@ -1,3 +1,9 @@
+package neko;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -14,7 +20,7 @@ public class Storage {
         this.filepath = filepath;
     }
 
-    public static ArrayList<Task> load() throws NekoException {
+    public ArrayList<Task> load() throws NekoException {
         try {
             BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
                     + "/src/main/data/neko.txt"));
@@ -36,15 +42,15 @@ public class Storage {
                     break;
                 case "D":
                     String by = split[3];
-                    LocalDate date = parseTextIntoDate(by);
+                    LocalDate date = DateParser.parseTextIntoDate(by);
                     Task deadline = new Deadline(description, date, isDone);
                     taskArr.add(deadline);
                     break;
                 case "E":
                     String from = split[3];
                     String to = split[4];
-                    LocalDate dateFrom = parseTextIntoDate(from);
-                    LocalDate dateTo = parseTextIntoDate(to);
+                    LocalDate dateFrom = DateParser.parseTextIntoDate(from);
+                    LocalDate dateTo = DateParser.parseTextIntoDate(to);
                     Task event = new Event(description, dateFrom, dateTo, isDone);
                     taskArr.add(event);
                 }
@@ -58,10 +64,10 @@ public class Storage {
         }
     }
 
-    public static void write(ArrayList<Task> taskArr) throws NekoException {
+    public void write(TaskList tasks) throws NekoException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir")
                 + "/src/main/data/neko.txt", false))) {
-            for (Task task : taskArr) {
+            for (Task task : tasks.getTaskArr()) {
                 writer.write(task.formatIntoData());
                 writer.newLine();
             }
