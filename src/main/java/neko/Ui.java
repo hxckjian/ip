@@ -54,15 +54,6 @@ public class Ui {
         this.showDividerLine();
     }
 
-    public void showIncorrectStatement() {
-        this.showDividerLine();
-        System.out.println("""
-                 I pawed at it, sniffed it, and… nope. (￣ω￣;)
-                 I don’t know what that means.
-                """);
-        this.showDividerLine();
-    }
-
     public void showMarkedTask(Task task) {
 //        taskArr.get(index - 1).markDone();
         this.showDividerLine();
