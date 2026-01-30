@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Displays the greeting message when the application starts.
+     */
     public void showGreetingMessage() {
         String message = """
                 ____________________________________________________________
@@ -17,6 +20,9 @@ public class Ui {
         System.out.println(message);
     }
 
+    /**
+     * Displays the farewell message when the application exits.
+     */
     public void printEndMessage() {
         String endMessage = """
                  Bye! Neko is curling up for a nap now.
@@ -33,6 +39,12 @@ public class Ui {
         this.showDividerLine();
     }
 
+    /**
+     * Prints the task list.
+     *
+     * @param list Formatted string representing the task list.
+     * @throws NekoException If the task list is empty.
+     */
     public void printListMessage(String list) throws NekoException {
         this.showDividerLine();
         if (list.isEmpty()) {
@@ -44,6 +56,12 @@ public class Ui {
         this.showDividerLine();
     }
 
+    /**
+     * Displays add task message.
+     *
+     * @param task Task that was added.
+     * @param length Total number of tasks after addition.
+     */
     public void showAddMessage(Task task, int length) {
         this.showDividerLine();
         String echoMessage = " Neko added this task:\n"
@@ -54,6 +72,11 @@ public class Ui {
         this.showDividerLine();
     }
 
+    /**
+     * Displays a message indicating that a task has been marked as done.
+     *
+     * @param task Task that was marked as done.
+     */
     public void showMarkedTask(Task task) {
         this.showDividerLine();
         System.out.println(" Nice! I've marked this task as done:");
@@ -61,6 +84,11 @@ public class Ui {
         this.showDividerLine();
     }
 
+    /**
+     * Displays a message indicating that a task has been marked as not done.
+     *
+     * @param task Task that was unmarked.
+     */
     public void showUnmarkedTask(Task task) {
         this.showDividerLine();
         System.out.println(" OK, I've marked this task as not done yet:");
@@ -68,6 +96,12 @@ public class Ui {
         this.showDividerLine();
     }
 
+    /**
+     * Displays a message after a task is deleted.
+     *
+     * @param task Task that was deleted.
+     * @param size Remaining number of tasks in the list.
+     */
     public void showDeletionOfTask(Task task, int size) {
         this.showDividerLine();
         System.out.println(" Roger nya! I have deleted this task:");
@@ -76,14 +110,27 @@ public class Ui {
         this.showDividerLine();
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message Content of error message.
+     */
     public void showError(String message) {
         System.out.println("OOPS!!! " + message);
     }
 
+    /**
+     * Displays a divider line to separate sections of output.
+     */
     public void showDividerLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Reads a command entered by the user.
+     *
+     * @return User input as a string.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
