@@ -17,6 +17,6 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
         tasks.unmarkTask(this.inputIndex);
         Task unmarkedTask = tasks.getTask(this.inputIndex - 1);
-        ui.showMarkedTask(unmarkedTask);
+        ui.showUnmarkedTask(unmarkedTask);
     }
 }
