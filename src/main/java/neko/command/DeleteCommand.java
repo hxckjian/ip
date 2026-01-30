@@ -7,7 +7,7 @@ import neko.Ui;
 import neko.task.Task;
 
 public class DeleteCommand extends Command {
-    public final int inputIndex;
+    private final int inputIndex;
 
     /**
      * Creates a command to delete a task at the specified index.

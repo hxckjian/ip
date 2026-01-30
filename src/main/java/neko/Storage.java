@@ -65,6 +65,7 @@ public class Storage {
                     LocalDate dateTo = DateParser.parseTextIntoDate(to);
                     Task event = new Event(description, dateFrom, dateTo, isDone);
                     taskArr.add(event);
+                    break;
                 }
                 line = br.readLine();
             }
@@ -89,8 +90,7 @@ public class Storage {
                 writer.write(task.formatIntoData());
                 writer.newLine();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new NekoException("I tried to write to the file but the file ran away…");
         }
     }

@@ -3,11 +3,6 @@ package neko;
 import neko.command.Command;
 
 public class Neko {
-    public enum InputType {
-        DEADLINE, EVENT, TODO, LIST,
-        MARK, UNMARK, DELETE, DEFAULT
-    }
-
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
