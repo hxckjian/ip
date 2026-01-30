@@ -1,9 +1,9 @@
 package neko;
 
-import neko.command.FindCommand;
 import neko.task.Deadline;
 import neko.task.Event;
 import neko.task.Task;
+import neko.task.ToDo;
 
 import java.time.LocalDate;
 
@@ -16,8 +16,7 @@ import neko.command.ListCommand;
 import neko.command.MarkCommand;
 import neko.command.TodoCommand;
 import neko.command.UnmarkCommand;
-
-import neko.task.ToDo;
+import neko.command.FindCommand;
 
 public class Parser {
     private enum InputType {
