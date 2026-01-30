@@ -55,19 +55,15 @@ public class Ui {
     }
 
     public void showMarkedTask(Task task) {
-//        taskArr.get(index - 1).markDone();
         this.showDividerLine();
         System.out.println(" Nice! I've marked this task as done:");
-//        System.out.println(taskArr.get(index - 1));
         System.out.println(task);
         this.showDividerLine();
     }
 
     public void showUnmarkedTask(Task task) {
-//        taskArr.get(index - 1).markUnDone();
         this.showDividerLine();
         System.out.println(" OK, I've marked this task as not done yet:");
-//        System.out.println(taskArr.get(index - 1));
         System.out.println(task);
         this.showDividerLine();
     }
@@ -77,9 +73,6 @@ public class Ui {
         System.out.println(" Roger nya! I have deleted this task:");
         System.out.println(task);
         System.out.println("Now you have " + size + " tasks in the list.");
-//        System.out.println(taskArr.get(index - 1));
-//        taskArr.remove(index - 1);
-//        System.out.println("Now you have " + taskArr.size() + " tasks in the list.");
         this.showDividerLine();
     }
 
