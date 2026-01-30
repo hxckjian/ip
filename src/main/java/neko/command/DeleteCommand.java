@@ -7,7 +7,7 @@ import neko.Ui;
 import neko.task.Task;
 
 public class DeleteCommand extends Command {
-    public final int inputIndex;
+    private final int inputIndex;
 
     public DeleteCommand(int inputIndex) {
         this.inputIndex = inputIndex;
