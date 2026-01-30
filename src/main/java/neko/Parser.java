@@ -12,7 +12,8 @@ import neko.task.ToDo;
 public class Parser {
     private enum InputType {
         DEADLINE, EVENT, TODO, LIST,
-        MARK, UNMARK, DELETE, BYE
+        MARK, UNMARK, DELETE, BYE,
+        FIND
     }
 
     public static Command parse(String input) throws NekoException {
@@ -77,6 +78,8 @@ public class Parser {
                 return parseDelete(deleteIndex);
             case BYE:
                 return parseBye();
+            case FIND:
+                return parseFind(split[1]);
             }
         } catch (IllegalArgumentException e) {
             throw new NekoException("""
@@ -184,6 +187,10 @@ public class Parser {
 
     public static Command parseBye() {
         return new ByeCommand();
+    }
+
+    public static Command parseFind(String keyword) {
+        return new FindCommand(keyword);
     }
 
     public static int countNumDelimiter(String[] array, String del) {
