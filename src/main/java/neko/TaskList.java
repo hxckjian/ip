@@ -43,6 +43,18 @@ public class TaskList {
         return this.taskArr.get(index);
     }
 
+    public String find(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        int index = 1;
+
+        for (Task task : this.taskArr) {
+            if (task.getDescription().contains(keyword)) {
+                sb.append(index++).append(". ").append(task).append("\n");
+            }
+        }
+        return sb.toString().trim();
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= this.taskArr.size(); i++) {
