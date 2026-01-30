@@ -134,4 +134,11 @@ public class Ui {
     public String readCommand() {
         return scanner.nextLine();
     }
+
+    public void showKeywordList(String list) {
+        this.showDividerLine();
+        System.out.println("I found them! Here are the matching tasks in your list:");
+        System.out.println(list);
+        this.showDividerLine();
+    }
 }

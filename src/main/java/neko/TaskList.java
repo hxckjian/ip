@@ -87,6 +87,18 @@ public class TaskList {
         return this.taskArr.get(index);
     }
 
+    public String find(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        int index = 1;
+
+        for (Task task : this.taskArr) {
+            if (task.getDescription().contains(keyword)) {
+                sb.append(index++).append(". ").append(task).append("\n");
+            }
+        }
+        return sb.toString().trim();
+    }
+
     /**
      * Returns a formatted string representation of the task list.
      *
