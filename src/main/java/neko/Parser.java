@@ -15,6 +15,13 @@ public class Parser {
         MARK, UNMARK, DELETE, BYE
     }
 
+    /**
+     * Parses the full input from user and returns the corresponding command.
+     *
+     * @param input Full input string by the user.
+     * @return A {@link Command} representing the corresponding command according to input.
+     * @throws NekoException If the input is invalid or cannot be parsed.
+     */
     public static Command parse(String input) throws NekoException {
         String[] split = input.trim().split(" ", 2);
         String inputMessage = split[0].trim().toUpperCase();
@@ -26,57 +33,28 @@ public class Parser {
 
             switch (inputType) {
             case TODO:
-//                // Add todo's neko.task
-//                Task todo = handleToDo(split);
-//
-//                // Add into list
-//                arrList.add(todo);
-//
-//                // Echo Message
-//                printEchoMessage(todo.toString(), arrList.size());
                 return parseTodo(split);
             case DEADLINE:
-//                // Add deadline
-//                Task deadline = handleDeadline(split);
-//
-//                // Add into list
-//                arrList.add(deadline);
-//
-//                // Echo Message
-//                printEchoMessage(deadline.toString(), arrList.size());
                 return parseDeadline(split);
             case EVENT:
-//                // Add event
-//                Task event = handleEvent(split);
-//
-//                // Add into list
-//                arrList.add(event);
-//
-//                // Echo Message
-//                printEchoMessage(event.toString(), arrList.size());
                 return parseEvent(split);
             case LIST:
-                // List out data
-//                String listOfData = generateListOfTasks(arrList);
-//                printListMessage(listOfData);
                 return parseList();
             case MARK:
-//                int markIndex = Integer.parseInt(split[1]);
-//                markSpecifiedTask(arrList, markIndex);
                 int markIndex = Integer.parseInt(split[1]);
                 return parseMark(markIndex);
             case UNMARK:
-//                int unMarkIndex = Integer.parseInt(split[1]);
-//                unMarkSpecifiedTask(arrList, unMarkIndex);
                 int unMarkIndex = Integer.parseInt(split[1]);
                 return parseUnmark(unMarkIndex);
             case DELETE:
-//                int deleteIndex = Integer.parseInt(split[1]);
-//                deleteTask(arrList, deleteIndex);
                 int deleteIndex = Integer.parseInt(split[1]);
                 return parseDelete(deleteIndex);
             case BYE:
                 return parseBye();
+            default:
+                throw new NekoException("""
+                        This command looks weird~
+                        No clue what it means!""");
             }
         } catch (IllegalArgumentException e) {
             throw new NekoException("""
@@ -84,9 +62,15 @@ public class Parser {
                  I don’t know what that means.
                 """);
         }
-        return null;
     }
 
+    /**
+     * Parses Todo command.
+     *
+     * @param content Tokenized user input.
+     * @return A {@link TodoCommand} containing the parsed todo task.
+     * @throws NekoException If the todo description is not given.
+     */
     public static Command parseTodo(String[] content) throws NekoException {
         if (content.length == 1) {
             throw new NekoException("Oops! A todo's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
@@ -95,6 +79,13 @@ public class Parser {
         return new TodoCommand(todo);
     }
 
+    /**
+     * Parses Deadline command.
+     *
+     * @param split Tokenized user input.
+     * @return A {@link DeadlineCommand} containing the parsed deadline task.
+     * @throws NekoException If the deadline format or date is invalid.
+     */
     public static Command parseDeadline(String[] split) throws NekoException {
         if (split.length == 1) {
             throw new NekoException("Oops! The deadline's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
@@ -124,6 +115,13 @@ public class Parser {
         return new DeadlineCommand(deadline);
     }
 
+    /**
+     * Parses Event command.
+     *
+     * @param split Tokenized user input.
+     * @return A {@link EventCommand} containing the parsed deadline task.
+     * @throws NekoException If the event format or date is invalid.
+     */
     public static Command parseEvent(String[] split) throws NekoException {
         if (split.length == 1) {
             throw new NekoException("Oops! The event's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
@@ -166,26 +164,61 @@ public class Parser {
         return new EventCommand(event);
     }
 
+    /**
+     * Creates a list command.
+     *
+     * @return A {@link ListCommand}.
+     */
     public static Command parseList() {
         return new ListCommand();
     }
 
+    /**
+     * Creates a mark command.
+     *
+     * @param inputIndex Inputted index of the task to be marked.
+     * @return A {@link MarkCommand}.
+     */
     public static Command parseMark(int inputIndex) {
         return new MarkCommand(inputIndex);
     }
 
+    /**
+     * Creates an unmark command.
+     *
+     * @param inputIndex Inputted index of the task to be unmarked.
+     * @return A {@link UnmarkCommand}.
+     */
     public static Command parseUnmark(int inputIndex) {
         return new UnmarkCommand(inputIndex);
     }
 
+    /**
+     * Creates a delete command.
+     *
+     * @param inputIndex Inputted index of the task to be deleted.
+     * @return A {@link DeleteCommand}.
+     */
     public static Command parseDelete(int inputIndex) {
         return new DeleteCommand(inputIndex);
     }
 
+    /**
+     * Creates a bye command.
+     *
+     * @return A {@link DeleteCommand}.
+     */
     public static Command parseBye() {
         return new ByeCommand();
     }
 
+    /**
+     * Counts the number of occurrences of a delimiter in an array.
+     *
+     * @param array Array of tokens.
+     * @param del Delimiter to count.
+     * @return Number of times the delimiter appears.
+     */
     public static int countNumDelimiter(String[] array, String del) {
         int num = 0;
         for (String s : array) {
@@ -196,6 +229,13 @@ public class Parser {
         return num;
     }
 
+    /**
+     * Finds the first occurrence index of delimiter.
+     *
+     * @param array Array of tokens.
+     * @param del Delimiter to find.
+     * @return Index of the first delimiter, or -1 if not found.
+     */
     public static int indexOfDelimiter(String[] array, String del) {
         for (int i = 0; i < array.length; i++) {
             if (array[i].equals(del)) {

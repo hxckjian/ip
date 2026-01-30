@@ -12,6 +12,12 @@ public class Neko {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a new Neko application instance.
+     * Loads existing tasks from the specified file path if available.
+     *
+     * @param filePath File path used to load and save task data.
+     */
     public Neko(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +29,12 @@ public class Neko {
         }
     }
 
+    /**
+     * Runs main application loop.
+     * Continuously run application loop by reading user commands, parses
+     * them, and executes corresponding actions until exit command is given.
+     *
+     */
     public void run() {
         ui.showGreetingMessage();
         boolean isExit = false;
@@ -37,10 +49,15 @@ public class Neko {
                 ui.showError(e.getMessage());
             }
         }
-        //...
     }
 
+    /**
+     * Executes main application logic.
+     * Creates a new Neko instance and starts the application.
+     *
+     * @param args command line arguments for configuration
+     */
     public static void main(String[] args) {
-        new Neko("data/tasks.txt").run();
+        new Neko("data/neko.txt").run();
     }
 }

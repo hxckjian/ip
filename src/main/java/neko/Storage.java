@@ -17,14 +17,25 @@ import java.util.ArrayList;
 public class Storage {
     private String filepath;
 
+    /**
+     * Creates a storage instance using the specified file path.
+     *
+     * @param filepath Relative path to the data file.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads tasks from the data file.
+     *
+     * @return An Array list of tasks loaded from storage.
+     * @throws NekoException If the file cannot be found or read.
+     */
     public ArrayList<Task> load() throws NekoException {
         try {
             BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
-                    + "/src/main/data/neko.txt"));
+                    + "/src/main/" + filepath));
             String line = br.readLine();
 
             ArrayList<Task> taskArr = new ArrayList<>();
@@ -65,6 +76,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the current task list to the data file.
+     *
+     * @param tasks Task list to be saved.
+     * @throws NekoException If an error occurs while writing to the file.
+     */
     public void write(TaskList tasks) throws NekoException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir")
                 + "/src/main/data/neko.txt", false))) {
