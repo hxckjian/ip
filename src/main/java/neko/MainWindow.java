@@ -26,10 +26,10 @@ public class MainWindow extends AnchorPane {
 
     private Neko neko;
 
-    private Image userImage = new Image(this.getClass().
-            getResourceAsStream("/images/normalsmileyandere.png"));
-    private Image nekoImage = new Image(this.getClass().
-            getResourceAsStream("/images/normalsmileMC.png"));
+    private Image userImage = new Image(this.getClass()
+            .getResourceAsStream("/images/normalsmileyandere.png"));
+    private Image nekoImage = new Image(this.getClass()
+            .getResourceAsStream("/images/normalsmileMC.png"));
 
     @FXML
     public void initialize() {
@@ -41,6 +41,9 @@ public class MainWindow extends AnchorPane {
         neko = d;
     }
 
+    /**
+     * Displays the greeting message from Neko in the dialog container.
+     */
     public void showGreetingBox() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getNekoDialog(neko.getGreeting(), nekoImage));

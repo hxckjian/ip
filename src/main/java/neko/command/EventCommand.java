@@ -6,6 +6,9 @@ import neko.TaskList;
 import neko.Ui;
 import neko.task.Task;
 
+/**
+ * Represents a command that adds a event task to the task list.
+ */
 public class EventCommand extends Command {
     private final Task event;
 

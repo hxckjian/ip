@@ -3,6 +3,9 @@ package neko.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an deadline task with an end date.
+ */
 public class Deadline extends Task {
     private LocalDate by;
 

@@ -1,21 +1,22 @@
 package neko;
 
-import neko.task.Deadline;
-import neko.task.Event;
-import neko.task.Task;
-import neko.task.ToDo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 
+import neko.task.Deadline;
+import neko.task.Event;
+import neko.task.Task;
+import neko.task.ToDo;
+
+/**
+ * Handles loading and saving of task data to persistent storage.
+ */
 public class Storage {
     private String filepath;
 
@@ -68,6 +69,8 @@ public class Storage {
                     Task event = new Event(description, dateFrom, dateTo, isDone);
                     taskArr.add(event);
                     break;
+                default:
+                    throw new NekoException("Unknown task type found in file: " + type);
                 }
                 line = br.readLine();
             }

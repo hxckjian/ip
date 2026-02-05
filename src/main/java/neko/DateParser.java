@@ -3,6 +3,9 @@ package neko;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Provides utility methods for parsing date strings into {@link LocalDate}.
+ */
 public class DateParser {
     /**
      * Parses a text into a {@link LocalDate}.

@@ -3,6 +3,9 @@ package neko.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with a start date and an end date.
+ */
 public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
