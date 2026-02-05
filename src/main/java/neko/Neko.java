@@ -6,6 +6,7 @@ public class Neko {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isExit = false;
 
     /**
      * Creates a new Neko application instance.
@@ -24,35 +25,28 @@ public class Neko {
         }
     }
 
+    public String getGreeting() {
+        return ui.showGreetingMessage();
+    }
+
     /**
      * Runs main application loop.
      * Continuously run application loop by reading user commands, parses
      * them, and executes corresponding actions until exit command is given.
      *
      */
-    public void run() {
-        ui.showGreetingMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showDividerLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (NekoException e) {
-                ui.showError(e.getMessage());
-            }
+    public String run(String fullCommand) {
+        try {
+            Command c = Parser.parse(fullCommand);
+            String outputMessage = c.execute(tasks, ui, storage);
+            this.isExit = c.isExit();
+            return outputMessage;
+        } catch (NekoException e) {
+            return ui.showError(e.getMessage());
         }
     }
 
-    /**
-     * Executes main application logic.
-     * Creates a new Neko instance and starts the application.
-     *
-     * @param args command line arguments for configuration
-     */
-    public static void main(String[] args) {
-        new Neko("data/neko.txt").run();
+    public boolean hasExited() {
+        return this.isExit;
     }
 }
