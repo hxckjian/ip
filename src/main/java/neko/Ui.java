@@ -53,8 +53,8 @@ public class Ui {
         if (list.isEmpty()) {
             throw new NekoException("The list is empty!");
         } else {
-            return "Here are the tasks in your list:\n "
-                    + list;
+            return showMessage("Here are the tasks in your list:",
+                    list);
         }
     }
 
@@ -65,12 +65,11 @@ public class Ui {
      * @param length Total number of tasks after addition.
      */
     public String showAddMessage(Task task, int length) {
-        String echoMessage = " I have added this task:\n"
-                + task
-                + "\nNow you have "
+        return showMessage("I have added this task:",
+                task.toString(),
+                "Now you have "
                 + length
-                + " tasks in the list.";
-        return echoMessage;
+                + " tasks in the list.");
     }
 
     /**
@@ -79,8 +78,8 @@ public class Ui {
      * @param task Task that was marked as done.
      */
     public String showMarkedTask(Task task) {
-        return "Nice! I've marked this task as done:\n"
-                + task;
+        return showMessage("Nice! I've marked this task as done:",
+                task.toString());
     }
 
     /**
@@ -89,8 +88,8 @@ public class Ui {
      * @param task Task that was unmarked.
      */
     public String showUnmarkedTask(Task task) {
-        return "OK, I've marked this task as not done yet:\n"
-                + task;
+        return showMessage("OK, I've marked this task as not done yet:",
+                task.toString());
     }
 
     /**
@@ -100,9 +99,9 @@ public class Ui {
      * @param size Remaining number of tasks in the list.
      */
     public String showDeletionOfTask(Task task, int size) {
-        return "Roger nya! I have deleted this task:\n"
-                + task
-                + "\nNow you have " + size + " tasks in the list.";
+        return showMessage("Roger nya! I have deleted this task:",
+                task.toString(),
+                "Now you have " + size + " tasks in the list.");
     }
 
     /**
@@ -130,7 +129,19 @@ public class Ui {
      * @return Message containing the matching tasks.
      */
     public String showKeywordList(String list) {
-        return "I found them! Here are the matching tasks in your list:\n"
-                + list;
+        return showMessage("I found them! Here are the matching tasks in your list:",
+                list);
+    }
+
+    /**
+     * Returns a formatted message composed of multiple message lines.
+     *
+     * Each provided message is concatenated in order, separated by a newline.
+     *
+     * @param messages Message lines to be combined.
+     * @return Combined formatted message.
+     */
+    public String showMessage(String... messages) {
+        return String.join("\n", messages);
     }
 }
