@@ -28,9 +28,9 @@ public class UnmarkCommand extends Command {
      * @throws NekoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
         tasks.unmarkTask(this.inputIndex);
         Task unmarkedTask = tasks.getTask(this.inputIndex - 1);
-        ui.showUnmarkedTask(unmarkedTask);
+        return ui.showUnmarkedTask(unmarkedTask);
     }
 }

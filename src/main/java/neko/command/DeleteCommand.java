@@ -28,9 +28,9 @@ public class DeleteCommand extends Command {
      * @throws NekoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
         Task removedTask = tasks.getTask(inputIndex - 1);
         tasks.removeTask(inputIndex);
-        ui.showDeletionOfTask(removedTask, tasks.getSize());
+        return ui.showDeletionOfTask(removedTask, tasks.getSize());
     }
 }

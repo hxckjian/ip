@@ -28,8 +28,8 @@ public class TodoCommand extends Command {
      * @throws NekoException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
         tasks.addTask(this.todo);
-        ui.showAddMessage(this.todo, tasks.getSize());
+        return ui.showAddMessage(this.todo, tasks.getSize());
     }
 }
