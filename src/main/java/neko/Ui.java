@@ -1,9 +1,15 @@
 package neko;
 
-import neko.task.Task;
-
 import java.util.Scanner;
 
+import neko.task.Task;
+
+/**
+ * Handles all user-facing messages and formatting for output.
+ *
+ * This class is responsible for generating messages shown to the user,
+ * including feedback, prompts, and formatted task-related responses.
+ */
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
 
@@ -61,8 +67,9 @@ public class Ui {
     public String showAddMessage(Task task, int length) {
         String echoMessage = " I have added this task:\n"
                 + task
-                + "\nNow you have " + length +
-                " tasks in the list.";
+                + "\nNow you have "
+                + length
+                + " tasks in the list.";
         return echoMessage;
     }
 
@@ -116,6 +123,12 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    /**
+     * Returns a formatted message displaying tasks that match a search keyword.
+     *
+     * @param list Formatted list of matching tasks.
+     * @return Message containing the matching tasks.
+     */
     public String showKeywordList(String list) {
         return "I found them! Here are the matching tasks in your list:\n"
                 + list;

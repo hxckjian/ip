@@ -6,6 +6,9 @@ import neko.TaskList;
 import neko.Ui;
 import neko.task.Task;
 
+/**
+ * Represents a command that unmarks a task.
+ */
 public class UnmarkCommand extends Command {
     private final int inputIndex;
 

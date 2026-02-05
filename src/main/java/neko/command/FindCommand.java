@@ -5,6 +5,9 @@ import neko.Storage;
 import neko.TaskList;
 import neko.Ui;
 
+/**
+ * Represents a command that shows a list based on a keyword.
+ */
 public class FindCommand extends Command {
     private final String keyword;
 

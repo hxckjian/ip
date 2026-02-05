@@ -6,6 +6,9 @@ import neko.TaskList;
 import neko.Ui;
 import neko.task.Task;
 
+/**
+ * Represents a command that deletes a task from the list.
+ */
 public class DeleteCommand extends Command {
     private final int inputIndex;
 

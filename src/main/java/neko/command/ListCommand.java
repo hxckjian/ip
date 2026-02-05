@@ -5,6 +5,9 @@ import neko.Storage;
 import neko.TaskList;
 import neko.Ui;
 
+/**
+ * Represents a command that shows a list.
+ */
 public class ListCommand extends Command {
     /**
      * Executes the list command.

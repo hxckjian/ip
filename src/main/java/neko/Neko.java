@@ -2,6 +2,13 @@ package neko;
 
 import neko.command.Command;
 
+/**
+ * Represents the main application class for Neko.
+ *
+ * This class initializes the core components of the application and
+ * coordinates interactions between the user interface, task list,
+ * storage, and command execution.
+ */
 public class Neko {
     private Storage storage;
     private TaskList tasks;

@@ -14,6 +14,9 @@ import neko.task.Event;
 import neko.task.Task;
 import neko.task.ToDo;
 
+/**
+ * Handles loading and saving of task data to persistent storage.
+ */
 public class Storage {
     private String filepath;
 
@@ -66,6 +69,8 @@ public class Storage {
                     Task event = new Event(description, dateFrom, dateTo, isDone);
                     taskArr.add(event);
                     break;
+                default:
+                    throw new NekoException("Unknown task type found in file: " + type);
                 }
                 line = br.readLine();
             }

@@ -5,6 +5,9 @@ import neko.Storage;
 import neko.TaskList;
 import neko.Ui;
 
+/**
+ * Represents a command that terminates the application.
+ */
 public class ByeCommand extends Command {
     /**
      * Executes the bye command.

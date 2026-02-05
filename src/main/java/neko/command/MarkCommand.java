@@ -6,6 +6,9 @@ import neko.TaskList;
 import neko.Ui;
 import neko.task.Task;
 
+/**
+ * Represents a command that marks a task.
+ */
 public class MarkCommand extends Command {
     private final int inputIndex;
 

@@ -1,5 +1,8 @@
 package neko.task;
 
+/**
+ * Represents an todo task.
+ */
 public class ToDo extends Task {
     /**
      * Creates a new todo task with the specified description.

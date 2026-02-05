@@ -5,6 +5,9 @@ import neko.Storage;
 import neko.TaskList;
 import neko.Ui;
 
+/**
+ * Represents a user command that can be executed by the application.
+ */
 public abstract class Command {
     /**
      * Executes the command.

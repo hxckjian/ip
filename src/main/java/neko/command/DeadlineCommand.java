@@ -6,6 +6,9 @@ import neko.TaskList;
 import neko.Ui;
 import neko.task.Task;
 
+/**
+ * Represents a command that adds a deadline task to the task list.
+ */
 public class DeadlineCommand extends Command {
     private final Task deadline;
 
