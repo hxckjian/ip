@@ -1,22 +1,21 @@
 package neko;
 
-import neko.task.Deadline;
-import neko.task.Event;
-import neko.task.Task;
-import neko.task.ToDo;
-
 import java.time.LocalDate;
 
 import neko.command.ByeCommand;
 import neko.command.Command;
-import neko.command.DeleteCommand;
 import neko.command.DeadlineCommand;
+import neko.command.DeleteCommand;
 import neko.command.EventCommand;
+import neko.command.FindCommand;
 import neko.command.ListCommand;
 import neko.command.MarkCommand;
 import neko.command.TodoCommand;
 import neko.command.UnmarkCommand;
-import neko.command.FindCommand;
+import neko.task.Deadline;
+import neko.task.Event;
+import neko.task.Task;
+import neko.task.ToDo;
 
 public class Parser {
     private enum InputType {
@@ -100,18 +99,22 @@ public class Parser {
      */
     public static Command parseDeadline(String[] split) throws NekoException {
         if (split.length == 1) {
-            throw new NekoException("Oops! The deadline's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! The deadline's content can’t be empty,"
+                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         }
         String[] afterCommandArray = split[1].trim().split(" ");
         int numBy = countNumDelimiter(afterCommandArray, "/by");
         if (numBy > 1) {
-            throw new NekoException("Oops! There's more than one deadline, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! There's more than one deadline,"
+                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (numBy == 0) {
             throw new NekoException("Oops! There's no deadline, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (afterCommandArray[0].equals("/by")) {
-            throw new NekoException("Oops! The deadline's content is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! The deadline's content is not specified,"
+                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (afterCommandArray[afterCommandArray.length - 1].equals("/by")) {
-            throw new NekoException("Oops! The deadline's /by is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! The deadline's /by is not specified,"
+                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         }
 
         String[] afterCommandSplitBy = split[1].trim().split("/by");

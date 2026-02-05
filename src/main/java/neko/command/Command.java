@@ -1,9 +1,9 @@
 package neko.command;
 
 import neko.NekoException;
+import neko.Storage;
 import neko.TaskList;
 import neko.Ui;
-import neko.Storage;
 
 public abstract class Command {
     /**

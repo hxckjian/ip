@@ -1,9 +1,13 @@
 package neko;
 
-import neko.task.Task;
-
 import java.util.ArrayList;
 
+import neko.task.Task;
+
+/**
+ * Represents a list of {@link Task} objects and provides operations
+ * to add, remove, update, search, and retrieve tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskArr;
 
@@ -87,6 +91,12 @@ public class TaskList {
         return this.taskArr.get(index);
     }
 
+    /**
+     * Returns a formatted list of tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword Keyword to search for within task descriptions.
+     * @return A formatted string of matching tasks, or an empty string if no matches are found.
+     */
     public String find(String keyword) {
         StringBuilder sb = new StringBuilder();
         int index = 1;

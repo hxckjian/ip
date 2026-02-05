@@ -34,9 +34,7 @@ public class Ui {
                  ⠛⠒⠛⠉⠉⠀⠀⠀⣴⠟⢃⡴⠛⠋⠉
                  ⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠋
                  """;
-//        this.showDividerLine();
         return endMessage;
-//        this.showDividerLine();
     }
 
     /**
@@ -46,14 +44,12 @@ public class Ui {
      * @throws NekoException If the task list is empty.
      */
     public String printListMessage(String list) throws NekoException {
-//        this.showDividerLine();
         if (list.isEmpty()) {
             throw new NekoException("The list is empty!");
         } else {
             return "Here are the tasks in your list:\n "
                     + list;
         }
-//        this.showDividerLine();
     }
 
     /**
@@ -63,13 +59,11 @@ public class Ui {
      * @param length Total number of tasks after addition.
      */
     public String showAddMessage(Task task, int length) {
-//        this.showDividerLine();
         String echoMessage = " I have added this task:\n"
                 + task
                 + "\nNow you have " + length +
                 " tasks in the list.";
         return echoMessage;
-//        this.showDividerLine();
     }
 
     /**
@@ -78,12 +72,8 @@ public class Ui {
      * @param task Task that was marked as done.
      */
     public String showMarkedTask(Task task) {
-//        this.showDividerLine();
-//        System.out.println(" Nice! I've marked this task as done:");
-//        System.out.println(task);
         return "Nice! I've marked this task as done:\n"
                 + task;
-//        this.showDividerLine();
     }
 
     /**
@@ -92,12 +82,8 @@ public class Ui {
      * @param task Task that was unmarked.
      */
     public String showUnmarkedTask(Task task) {
-//        this.showDividerLine();
-//        System.out.println(" OK, I've marked this task as not done yet:");
-//        System.out.println(task);
         return "OK, I've marked this task as not done yet:\n"
                 + task;
-//        this.showDividerLine();
     }
 
     /**
@@ -107,14 +93,9 @@ public class Ui {
      * @param size Remaining number of tasks in the list.
      */
     public String showDeletionOfTask(Task task, int size) {
-//        this.showDividerLine();
-//        System.out.println(" Roger nya! I have deleted this task:");
-//        System.out.println(task);
-//        System.out.println("Now you have " + size + " tasks in the list.");
         return "Roger nya! I have deleted this task:\n"
                 + task
                 + "\nNow you have " + size + " tasks in the list.";
-//        this.showDividerLine();
     }
 
     /**
@@ -123,16 +104,8 @@ public class Ui {
      * @param message Content of error message.
      */
     public String showError(String message) {
-//        System.out.println("OOPS!!! " + message);
         return "OOPS!!! " + message;
     }
-
-    /**
-     * Displays a divider line to separate sections of output.
-     */
-//    public String showDividerLine() {
-//        return "____________________________________________________________";
-//    }
 
     /**
      * Reads a command entered by the user.
@@ -144,11 +117,7 @@ public class Ui {
     }
 
     public String showKeywordList(String list) {
-//        this.showDividerLine();
-//        System.out.println("I found them! Here are the matching tasks in your list:");
-//        System.out.println(list);
         return "I found them! Here are the matching tasks in your list:\n"
                 + list;
-//        this.showDividerLine();
     }
 }

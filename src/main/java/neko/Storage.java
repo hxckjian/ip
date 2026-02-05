@@ -1,20 +1,18 @@
 package neko;
 
-import neko.task.Deadline;
-import neko.task.Event;
-import neko.task.Task;
-import neko.task.ToDo;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDate;
-
 import java.util.ArrayList;
+
+import neko.task.Deadline;
+import neko.task.Event;
+import neko.task.Task;
+import neko.task.ToDo;
 
 public class Storage {
     private String filepath;
