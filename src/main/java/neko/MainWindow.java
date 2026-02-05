@@ -41,6 +41,9 @@ public class MainWindow extends AnchorPane {
         neko = d;
     }
 
+    /**
+     * Displays the greeting message from Neko in the dialog container.
+     */
     public void showGreetingBox() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getNekoDialog(neko.getGreeting(), nekoImage));
