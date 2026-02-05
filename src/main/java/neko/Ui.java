@@ -10,22 +10,21 @@ public class Ui {
     /**
      * Displays the greeting message when the application starts.
      */
-    public void showGreetingMessage() {
+    public String showGreetingMessage() {
         String message = """
-                ____________________________________________________________
-                  /\\_/\\
-                 ( o.o )  Hello! I'm Neko.
-                  > ^ <   I'm here to listen — what can I do for you?
-                ____________________________________________________________""";
-        System.out.println(message);
+                   /\\_/\\
+                  ( o.o )  Hello! I'm Neko.
+                   > ^ <   I'm here to listen — what can I do for you?
+                   """;
+        return message;
     }
 
     /**
      * Displays the farewell message when the application exits.
      */
-    public void printEndMessage() {
+    public String printEndMessage() {
         String endMessage = """
-                 Bye! Neko is curling up for a nap now.
+                 Bye! I'm curling up for a nap now.
                  ⠀⠀⠀⠀⢀⡴⣄⠀⠀⠀⠀⢠⣄⠀⠀⠀⠀⠀⠀⠀⣼⣿⡟⠃
                  ⠀⠀⠀⣰⠋⠀⠈⠓⠒⠒⠒⠚⠈⢳⡄⠀⠀⠀⠀⠀⣿⣿
                  ⠀⠀⣼⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣤⣤⣤⣤⣤⣿⣿⣄
@@ -33,10 +32,11 @@ public class Ui {
                  ⠀⠀⢷⡀⠀⠉⠉⠀⠀⠀⠉⠉⠀⠀⣠⡿⠀⠀⠀⢀⣀⣠⣤⠿⠞⠛⠋
                  ⣠⠾⠋⠙⣶⠤⠤⠤⠤⣤⡤⠤⠤⠞⣠⡴⠶⠚⠋⠉⠁
                  ⠛⠒⠛⠉⠉⠀⠀⠀⣴⠟⢃⡴⠛⠋⠉
-                 ⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠋""";
-        this.showDividerLine();
-        System.out.println(endMessage);
-        this.showDividerLine();
+                 ⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠋
+                 """;
+//        this.showDividerLine();
+        return endMessage;
+//        this.showDividerLine();
     }
 
     /**
@@ -45,15 +45,15 @@ public class Ui {
      * @param list Formatted string representing the task list.
      * @throws NekoException If the task list is empty.
      */
-    public void printListMessage(String list) throws NekoException {
-        this.showDividerLine();
+    public String printListMessage(String list) throws NekoException {
+//        this.showDividerLine();
         if (list.isEmpty()) {
             throw new NekoException("The list is empty!");
         } else {
-            System.out.println("Here are the tasks in your list:");
-            System.out.println(list);
+            return "Here are the tasks in your list:\n "
+                    + list;
         }
-        this.showDividerLine();
+//        this.showDividerLine();
     }
 
     /**
@@ -62,14 +62,14 @@ public class Ui {
      * @param task Task that was added.
      * @param length Total number of tasks after addition.
      */
-    public void showAddMessage(Task task, int length) {
-        this.showDividerLine();
-        String echoMessage = " Neko added this task:\n"
+    public String showAddMessage(Task task, int length) {
+//        this.showDividerLine();
+        String echoMessage = " I have added this task:\n"
                 + task
                 + "\nNow you have " + length +
                 " tasks in the list.";
-        System.out.println(echoMessage);
-        this.showDividerLine();
+        return echoMessage;
+//        this.showDividerLine();
     }
 
     /**
@@ -77,11 +77,13 @@ public class Ui {
      *
      * @param task Task that was marked as done.
      */
-    public void showMarkedTask(Task task) {
-        this.showDividerLine();
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println(task);
-        this.showDividerLine();
+    public String showMarkedTask(Task task) {
+//        this.showDividerLine();
+//        System.out.println(" Nice! I've marked this task as done:");
+//        System.out.println(task);
+        return "Nice! I've marked this task as done:\n"
+                + task;
+//        this.showDividerLine();
     }
 
     /**
@@ -89,11 +91,13 @@ public class Ui {
      *
      * @param task Task that was unmarked.
      */
-    public void showUnmarkedTask(Task task) {
-        this.showDividerLine();
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println(task);
-        this.showDividerLine();
+    public String showUnmarkedTask(Task task) {
+//        this.showDividerLine();
+//        System.out.println(" OK, I've marked this task as not done yet:");
+//        System.out.println(task);
+        return "OK, I've marked this task as not done yet:\n"
+                + task;
+//        this.showDividerLine();
     }
 
     /**
@@ -102,12 +106,15 @@ public class Ui {
      * @param task Task that was deleted.
      * @param size Remaining number of tasks in the list.
      */
-    public void showDeletionOfTask(Task task, int size) {
-        this.showDividerLine();
-        System.out.println(" Roger nya! I have deleted this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        this.showDividerLine();
+    public String showDeletionOfTask(Task task, int size) {
+//        this.showDividerLine();
+//        System.out.println(" Roger nya! I have deleted this task:");
+//        System.out.println(task);
+//        System.out.println("Now you have " + size + " tasks in the list.");
+        return "Roger nya! I have deleted this task:\n"
+                + task
+                + "\nNow you have " + size + " tasks in the list.";
+//        this.showDividerLine();
     }
 
     /**
@@ -115,16 +122,17 @@ public class Ui {
      *
      * @param message Content of error message.
      */
-    public void showError(String message) {
-        System.out.println("OOPS!!! " + message);
+    public String showError(String message) {
+//        System.out.println("OOPS!!! " + message);
+        return "OOPS!!! " + message;
     }
 
     /**
      * Displays a divider line to separate sections of output.
      */
-    public void showDividerLine() {
-        System.out.println("____________________________________________________________");
-    }
+//    public String showDividerLine() {
+//        return "____________________________________________________________";
+//    }
 
     /**
      * Reads a command entered by the user.
@@ -135,10 +143,12 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void showKeywordList(String list) {
-        this.showDividerLine();
-        System.out.println("I found them! Here are the matching tasks in your list:");
-        System.out.println(list);
-        this.showDividerLine();
+    public String showKeywordList(String list) {
+//        this.showDividerLine();
+//        System.out.println("I found them! Here are the matching tasks in your list:");
+//        System.out.println(list);
+        return "I found them! Here are the matching tasks in your list:\n"
+                + list;
+//        this.showDividerLine();
     }
 }
