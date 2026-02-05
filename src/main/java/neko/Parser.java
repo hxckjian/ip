@@ -17,6 +17,9 @@ import neko.task.Event;
 import neko.task.Task;
 import neko.task.ToDo;
 
+/**
+ * Handles loading and saving of task data to persistent storage.
+ */
 public class Parser {
     private enum InputType {
         DEADLINE, EVENT, TODO, LIST,
@@ -149,19 +152,25 @@ public class Parser {
         int indexTo = indexOfDelimiter(afterCommandArray, "/to");
 
         if (numFrom > 1) {
-            throw new NekoException("Oops! There's more than one /from, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! There's more than one /from, meow."
+                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (indexFrom == -1) {
             throw new NekoException("Oops! There's no /from, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (numTo > 1) {
-            throw new NekoException("Oops! There's more than one /to, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! There's more than one /to,"
+                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (indexTo == -1) {
-            throw new NekoException("Oops! There's no /to, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! There's no /to, meow."
+                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (afterCommandArray[0].equals("/from")) {
-            throw new NekoException("Oops! The event's content is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! The event's content is not specified, meow."
+                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (afterCommandArray[afterCommandArray.length - 1].equals("/to")) {
-            throw new NekoException("Oops! The event's /to content is not specified, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! The event's /to content is not specified, meow."
+                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         } else if (indexFrom > indexTo) {
-            throw new NekoException("Oops! The deadline's /from is after /to, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("Oops! The deadline's /from is after /to,"
+                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         }
         String[] splitFrom = split[1].split("/from");
         String description = splitFrom[0].trim();
