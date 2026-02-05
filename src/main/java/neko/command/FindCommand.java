@@ -13,7 +13,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
-        ui.showKeywordList(tasks.find(this.keyword));
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
+        return ui.showKeywordList(tasks.find(this.keyword));
     }
 }

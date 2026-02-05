@@ -14,7 +14,7 @@ public abstract class Command {
      * @param storage Storage instance for saving data.
      * @throws NekoException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException;
 
     /**
      * Indicates whether this command should terminate the application.

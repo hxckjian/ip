@@ -16,9 +16,9 @@ public class ByeCommand extends Command {
      * @throws NekoException If an error occurs during command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
         storage.write(tasks);
-        ui.printEndMessage();
+        return ui.printEndMessage();
     }
 
     /**

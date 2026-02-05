@@ -28,8 +28,8 @@ public class DeadlineCommand extends Command {
      * @throws NekoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
         tasks.addTask(this.deadline);
-        ui.showAddMessage(this.deadline, tasks.getSize());
+        return ui.showAddMessage(this.deadline, tasks.getSize());
     }
 }

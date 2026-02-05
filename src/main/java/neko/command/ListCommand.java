@@ -16,7 +16,7 @@ public class ListCommand extends Command {
      * @throws NekoException If an error occurs during execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
-        ui.printListMessage(tasks.toString());
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
+        return ui.printListMessage(tasks.toString());
     }
 }
