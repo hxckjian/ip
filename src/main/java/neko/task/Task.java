@@ -41,14 +41,14 @@ public class Task {
     /**
      * Marks the task as completed.
      */
-    public void markDone() {
+    public void setDone() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as not completed.
      */
-    public void markUnDone() {
+    public void setUnDone() {
         this.isDone = false;
     }
 
