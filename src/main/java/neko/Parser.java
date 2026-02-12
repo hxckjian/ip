@@ -105,8 +105,10 @@ public class Parser {
             throw new NekoException("Oops! The deadline's content can’t be empty,"
                     + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
         }
+
         String[] afterCommandArray = split[1].trim().split(" ");
         int numBy = countNumDelimiter(afterCommandArray, "/by");
+
         if (numBy > 1) {
             throw new NekoException("Oops! There's more than one deadline,"
                     + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
