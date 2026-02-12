@@ -10,9 +10,9 @@ import neko.command.Command;
  * storage, and command execution.
  */
 public class Neko {
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
     private boolean isExit = false;
 
     /**
@@ -27,7 +27,6 @@ public class Neko {
         try {
             tasks = new TaskList(storage.load());
         } catch (NekoException e) {
-            ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
