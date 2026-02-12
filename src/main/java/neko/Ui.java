@@ -28,7 +28,7 @@ public class Ui {
     /**
      * Displays the farewell message when the application exits.
      */
-    public String printEndMessage() {
+    public String showEndMessage() {
         String endMessage = """
                  Bye! I'm curling up for a nap now.
                  ⠀⠀⠀⠀⢀⡴⣄⠀⠀⠀⠀⢠⣄⠀⠀⠀⠀⠀⠀⠀⣼⣿⡟⠃
@@ -52,10 +52,9 @@ public class Ui {
     public String printListMessage(String list) throws NekoException {
         if (list.isEmpty()) {
             throw new NekoException("The list is empty!");
-        } else {
-            return showMessage("Here are the tasks in your list:",
-                    list);
         }
+        return showMessage("Here are the tasks in your list:",
+                    list);
     }
 
     /**
