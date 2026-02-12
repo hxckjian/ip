@@ -33,7 +33,11 @@ public class TaskList {
      * @param task Task to be added.
      */
     public void addTask(Task task) {
+        int originalSize = this.getSize();
         this.taskArr.add(task);
+
+        assert this.getSize() == originalSize + 1
+                : "Task not added correctly";
     }
 
     /**
@@ -42,6 +46,8 @@ public class TaskList {
      * @param inputIndex One-based index of the task to remove.
      */
     public void removeTask(int inputIndex) {
+        assert inputIndex >= 1 && inputIndex <= this.getSize()
+                : "Invalid index in removeTask()";
         this.taskArr.remove(inputIndex - 1);
     }
 
@@ -88,6 +94,8 @@ public class TaskList {
      * @return Task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < this.getSize()
+                : "Index out of bounds in getTask()";
         return this.taskArr.get(index);
     }
 
