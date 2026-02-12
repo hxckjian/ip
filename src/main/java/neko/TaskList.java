@@ -1,6 +1,7 @@
 package neko;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import neko.task.Task;
 
@@ -98,15 +99,10 @@ public class TaskList {
      * @return A formatted string of matching tasks, or an empty string if no matches are found.
      */
     public String find(String keyword) {
-        StringBuilder sb = new StringBuilder();
-        int index = 1;
-
-        for (Task task : this.taskArr) {
-            if (task.getDescription().contains(keyword)) {
-                sb.append(index++).append(". ").append(task).append("\n");
-            }
-        }
-        return sb.toString().trim();
+        return taskArr.stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .map(task -> taskArr.indexOf(task) + 1 + ". " + task)
+                .collect(Collectors.joining("\n"));
     }
 
     /**
