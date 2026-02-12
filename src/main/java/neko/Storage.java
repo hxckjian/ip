@@ -2,7 +2,7 @@ package neko;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import neko.task.ToDo;
  * Handles loading and saving of task data to persistent storage.
  */
 public class Storage {
+    private static final String BASE_DIRECTORY = "src/main/";
+    private static final String DATA_DELIMITER = " \\| ";
     private String filepath;
 
     /**
@@ -36,49 +38,66 @@ public class Storage {
      * @throws NekoException If the file cannot be found or read.
      */
     public ArrayList<Task> load() throws NekoException {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")
-                    + "/src/main/" + filepath));
-            String line = br.readLine();
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(resolvePath());
 
-            ArrayList<Task> taskArr = new ArrayList<>();
+        if (!file.exists()) {
+            return tasks; // first run: no data file yet
+        }
 
-            while (line != null) {
-                String[] split = line.split(" \\| ");
-                String type = split[0];
-                String description = split[2];
+        try (BufferedReader br = new BufferedReader(
+                new FileReader(file))) {
 
-                boolean isDone = split[1].equals("1");
-
-                switch (type) {
-                case "T":
-                    Task todo = new ToDo(description, isDone);
-                    taskArr.add(todo);
-                    break;
-                case "D":
-                    String by = split[3];
-                    LocalDate date = DateParser.parseTextIntoDate(by);
-                    Task deadline = new Deadline(description, date, isDone);
-                    taskArr.add(deadline);
-                    break;
-                case "E":
-                    String from = split[3];
-                    String to = split[4];
-                    LocalDate dateFrom = DateParser.parseTextIntoDate(from);
-                    LocalDate dateTo = DateParser.parseTextIntoDate(to);
-                    Task event = new Event(description, dateFrom, dateTo, isDone);
-                    taskArr.add(event);
-                    break;
-                default:
-                    throw new NekoException("Unknown task type found in file: " + type);
-                }
-                line = br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                tasks.add(parseLine(line));
             }
-            return taskArr;
-        } catch (FileNotFoundException e) {
-            throw new NekoException("Meow! I can't find neko.txt in my data folder!");
+
         } catch (IOException e) {
             throw new NekoException("An I/O error occurred nya!");
+        }
+
+        return tasks;
+    }
+
+    private String resolvePath() {
+        return System.getProperty("user.dir") + "/" + BASE_DIRECTORY + filepath;
+    }
+
+    private Task parseLine(String line) throws NekoException {
+        String[] parts = line.split(DATA_DELIMITER);
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (type) {
+        case "T":
+            return new ToDo(description, isDone);
+
+        case "D":
+            LocalDate by = DateParser.parseTextIntoDate(parts[3]);
+            return new Deadline(description, by, isDone);
+
+        case "E":
+            LocalDate from = DateParser.parseTextIntoDate(parts[3]);
+            LocalDate to = DateParser.parseTextIntoDate(parts[4]);
+            return new Event(description, from, to, isDone);
+
+        default:
+            throw new NekoException("Unknown task type found in file: " + type);
+        }
+    }
+
+    private void ensureDirectoryExists() throws NekoException {
+        File file = new File(resolvePath());
+        File parentDir = file.getParentFile();
+
+        if (parentDir != null && !parentDir.exists()) {
+            boolean created = parentDir.mkdirs();
+            if (!created) {
+                throw new NekoException("Unable to create data directory.");
+            }
         }
     }
 
@@ -89,8 +108,9 @@ public class Storage {
      * @throws NekoException If an error occurs while writing to the file.
      */
     public void write(TaskList tasks) throws NekoException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir")
-                + "/src/main/data/neko.txt", false))) {
+        ensureDirectoryExists();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(resolvePath(), false))) {
             for (Task task : tasks.getTaskArr()) {
                 writer.write(task.formatIntoData());
                 writer.newLine();
