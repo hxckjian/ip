@@ -11,8 +11,6 @@ import neko.task.Task;
  * including feedback, prompts, and formatted task-related responses.
  */
 public class Ui {
-    private final Scanner scanner = new Scanner(System.in);
-
     /**
      * Displays the greeting message when the application starts.
      */
@@ -110,15 +108,6 @@ public class Ui {
      */
     public String showError(String message) {
         return "OOPS!!! " + message;
-    }
-
-    /**
-     * Reads a command entered by the user.
-     *
-     * @return User input as a string.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
     }
 
     /**
