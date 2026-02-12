@@ -34,6 +34,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
+    public void snooze(int days) {
+        this.by = this.by.plusDays(days);
+    }
+
     /**
      * Returns a string representation of the deadline task for display.
      *

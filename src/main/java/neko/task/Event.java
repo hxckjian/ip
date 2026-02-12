@@ -39,6 +39,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    @Override
+    public void snooze(int days) {
+        this.to = this.to.plusDays(days);
+    }
+
     /**
      * Returns a string representation of the event task for display.
      *
