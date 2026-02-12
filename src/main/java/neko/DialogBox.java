@@ -19,24 +19,36 @@ import javafx.scene.layout.HBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final String FXML_PATH = "/view/DialogBox.fxml";
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
 
     private DialogBox(String text, Image img) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class
-                    .getResource("/view/DialogBox.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadFxml();
+        initializeContent(text, img);
+    }
 
+    private void loadFxml() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    DialogBox.class.getResource(FXML_PATH));
+            loader.setController(this);
+            loader.setRoot(this);
+            loader.load();
+        } catch (IOException e) {
+            handleFxmlLoadError(e);
+        }
+    }
+
+    private void initializeContent(String text, Image img) {
         dialog.setText(text);
         displayPicture.setImage(img);
+    }
+
+    private void handleFxmlLoadError(IOException e) {
+        throw new RuntimeException("Failed to load DialogBox.fxml", e);
     }
 
     /**
