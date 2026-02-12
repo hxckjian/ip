@@ -51,7 +51,7 @@ public class TaskList {
      * @param inputIndex One-based index of the task to mark.
      */
     public void markTask(int inputIndex) {
-        this.taskArr.get(inputIndex - 1).markDone();
+        this.taskArr.get(inputIndex - 1).setDone();
     }
 
     /**
@@ -60,7 +60,7 @@ public class TaskList {
      * @param inputIndex One-based index of the task to unmark.
      */
     public void unmarkTask(int inputIndex) {
-        this.taskArr.get(inputIndex - 1).markUnDone();
+        this.taskArr.get(inputIndex - 1).setUnDone();
     }
 
     /**

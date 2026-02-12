@@ -15,22 +15,22 @@ public class TaskTest {
     @Test
     public void markDone_taskMarkedDone_statusIconX() {
         Task task = new Task("read book");
-        task.markDone();
+        task.setDone();
         assertEquals("X", task.getStatusIcon());
     }
 
     @Test
     public void markUnDone_afterMarkDone_taskNotDone() {
         Task task = new Task("read book");
-        task.markDone();
-        task.markUnDone();
+        task.setDone();
+        task.setUnDone();
         assertEquals(" ", task.getStatusIcon());
     }
 
     @Test
     public void toString_doneTask_correctFormat() {
         Task task = new Task("read book");
-        task.markDone();
+        task.setDone();
         assertEquals("[X] read book", task.toString());
     }
 
