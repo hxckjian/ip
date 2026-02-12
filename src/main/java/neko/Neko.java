@@ -47,6 +47,7 @@ public class Neko {
             Command c = Parser.parse(fullCommand);
             String outputMessage = c.execute(tasks, ui, storage);
             this.isExit = c.isExit();
+
             return outputMessage;
         } catch (NekoException e) {
             return ui.showError(e.getMessage());
