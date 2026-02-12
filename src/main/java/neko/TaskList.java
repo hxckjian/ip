@@ -70,6 +70,10 @@ public class TaskList {
         this.taskArr.get(toZeroBasedIndex(inputIndex)).setUnDone();
     }
 
+    public void snoozeTask(int inputIndex, int days) throws NekoException {
+        this.taskArr.get(toZeroBasedIndex(inputIndex)).snooze(days);
+    }
+
     /**
      * Returns the number of tasks in the list.
      *
@@ -100,7 +104,7 @@ public class TaskList {
         return this.taskArr.get(index);
     }
 
-    private int toZeroBasedIndex(int oneBasedIndex) {
+    public int toZeroBasedIndex(int oneBasedIndex) {
         return oneBasedIndex - 1;
     }
 

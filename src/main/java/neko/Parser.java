@@ -10,6 +10,7 @@ import neko.command.EventCommand;
 import neko.command.FindCommand;
 import neko.command.ListCommand;
 import neko.command.MarkCommand;
+import neko.command.SnoozeCommand;
 import neko.command.TodoCommand;
 import neko.command.UnmarkCommand;
 import neko.task.Deadline;
@@ -24,7 +25,7 @@ public class Parser {
     private enum InputType {
         DEADLINE, EVENT, TODO, LIST,
         MARK, UNMARK, DELETE, BYE,
-        FIND
+        FIND, SNOOZE
     }
 
     /**
@@ -115,6 +116,8 @@ public class Parser {
             return parseBye();
         case FIND:
             return parseFind(parseKeyword(tokens));
+        case SNOOZE:
+            return parseSnooze(tokens);
         default:
             throw unknownCommandException();
         }
@@ -257,6 +260,18 @@ public class Parser {
         Task event = new Event(description, dateFrom, dateTo);
 
         return new EventCommand(event);
+    }
+
+    public static Command parseSnooze(String[] split) throws NekoException {
+        if (split.length == 1) {
+            throw new NekoException("Oops! The deadline's content can’t be empty,"
+                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        }
+
+        String[] afterCommandArray = split[1].trim().split(" ");
+        int index = Integer.parseInt(afterCommandArray[0]);
+        int days = Integer.parseInt(afterCommandArray[1]);
+        return new SnoozeCommand(index, days);
     }
 
     /**

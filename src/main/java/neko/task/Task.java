@@ -1,5 +1,7 @@
 package neko.task;
 
+import neko.NekoException;
+
 /**
  * Represents a generic task with a description and completion status.
  */
@@ -59,6 +61,16 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Snoozes the task by a given number of days.
+     *
+     * @param days Number of days to postpone.
+     * @throws NekoException If the task type does not support snoozing.
+     */
+    public void snooze(int days) throws NekoException {
+        throw new NekoException("This task cannot be snoozed.");
     }
 
     /**
