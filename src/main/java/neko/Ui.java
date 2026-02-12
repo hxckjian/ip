@@ -1,7 +1,5 @@
 package neko;
 
-import java.util.Scanner;
-
 import neko.task.Task;
 
 /**
