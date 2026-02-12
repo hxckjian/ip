@@ -46,9 +46,9 @@ public class TaskList {
      * @param inputIndex One-based index of the task to remove.
      */
     public void removeTask(int inputIndex) {
+        this.taskArr.remove(toZeroBasedIndex(inputIndex));
         assert inputIndex >= 1 && inputIndex <= this.getSize()
                 : "Invalid index in removeTask()";
-        this.taskArr.remove(inputIndex - 1);
     }
 
     /**
@@ -57,7 +57,7 @@ public class TaskList {
      * @param inputIndex One-based index of the task to mark.
      */
     public void markTask(int inputIndex) {
-        this.taskArr.get(inputIndex - 1).setDone();
+        this.taskArr.get(toZeroBasedIndex(inputIndex)).setDone();
     }
 
     /**
@@ -66,7 +66,7 @@ public class TaskList {
      * @param inputIndex One-based index of the task to unmark.
      */
     public void unmarkTask(int inputIndex) {
-        this.taskArr.get(inputIndex - 1).setUnDone();
+        this.taskArr.get(toZeroBasedIndex(inputIndex)).setUnDone();
     }
 
     /**
@@ -97,6 +97,10 @@ public class TaskList {
         assert index >= 0 && index < this.getSize()
                 : "Index out of bounds in getTask()";
         return this.taskArr.get(index);
+    }
+
+    private int toZeroBasedIndex(int oneBasedIndex) {
+        return oneBasedIndex - 1;
     }
 
     /**

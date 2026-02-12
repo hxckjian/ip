@@ -1,7 +1,5 @@
 package neko;
 
-import java.util.Scanner;
-
 import neko.task.Task;
 
 /**
@@ -11,8 +9,6 @@ import neko.task.Task;
  * including feedback, prompts, and formatted task-related responses.
  */
 public class Ui {
-    private final Scanner scanner = new Scanner(System.in);
-
     /**
      * Displays the greeting message when the application starts.
      */
@@ -28,7 +24,7 @@ public class Ui {
     /**
      * Displays the farewell message when the application exits.
      */
-    public String printEndMessage() {
+    public String showEndMessage() {
         String endMessage = """
                  Bye! I'm curling up for a nap now.
                  ⠀⠀⠀⠀⢀⡴⣄⠀⠀⠀⠀⢠⣄⠀⠀⠀⠀⠀⠀⠀⣼⣿⡟⠃
@@ -52,10 +48,9 @@ public class Ui {
     public String printListMessage(String list) throws NekoException {
         if (list.isEmpty()) {
             throw new NekoException("The list is empty!");
-        } else {
-            return showMessage("Here are the tasks in your list:",
-                    list);
         }
+        return showMessage("Here are the tasks in your list:",
+                    list);
     }
 
     /**
@@ -111,15 +106,6 @@ public class Ui {
      */
     public String showError(String message) {
         return "OOPS!!! " + message;
-    }
-
-    /**
-     * Reads a command entered by the user.
-     *
-     * @return User input as a string.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
     }
 
     /**

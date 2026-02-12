@@ -35,47 +35,116 @@ public class Parser {
      * @throws NekoException If the input is invalid or cannot be parsed.
      */
     public static Command parse(String input) throws NekoException {
-        String[] split = input.trim().split(" ", 2);
-        String inputMessage = split[0].trim().toUpperCase();
-        InputType inputType;
+        String[] tokens = tokenize(input);
+        InputType type = resolveCommandType(tokens[0]);
+        return dispatchCommand(type, tokens);
+    }
 
-        // Check for invalid input
+    /**
+     * Tokenizes User input.
+     *
+     * @param input User input
+     * @return String array that was split by first space.
+     */
+    private static String[] tokenize(String input) {
+        return input.trim().split(" ", 2);
+    }
+
+    /**
+     * Returns the corresponding {@link InputType} for the given command keyword.
+     *
+     * @param keyword Command keyword entered by the user.
+     * @return The matching {@link InputType}.
+     * @throws NekoException If the keyword does not correspond to a valid command type.
+     */
+    private static InputType resolveCommandType(String keyword) throws NekoException {
         try {
-            inputType = InputType.valueOf(inputMessage);
-
-            switch (inputType) {
-            case TODO:
-                return parseTodo(split);
-            case DEADLINE:
-                return parseDeadline(split);
-            case EVENT:
-                return parseEvent(split);
-            case LIST:
-                return parseList();
-            case MARK:
-                int markIndex = Integer.parseInt(split[1]);
-                return parseMark(markIndex);
-            case UNMARK:
-                int unMarkIndex = Integer.parseInt(split[1]);
-                return parseUnmark(unMarkIndex);
-            case DELETE:
-                int deleteIndex = Integer.parseInt(split[1]);
-                return parseDelete(deleteIndex);
-            case BYE:
-                return parseBye();
-            case FIND:
-                return parseFind(split[1]);
-            default:
-                throw new NekoException("""
-                        This command looks weird~
-                        No clue what it means!""");
-            }
+            return InputType.valueOf(keyword.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new NekoException("""
-                 I pawed at it, sniffed it, and… nope. (￣ω￣;)
-                 I don’t know what that means.
-                """);
+            throw unknownCommandException();
         }
+    }
+
+    /**
+     * Returns the parsed task index from the given tokenized input.
+     *
+     * @param tokens Tokenized user input where the second element is expected
+     *               to contain the task index.
+     * @return Parsed integer index of the task.
+     * @throws NekoException If the index is missing or not a valid integer.
+     */
+    private static int parseIndex(String[] tokens) throws NekoException {
+        if (tokens.length < 2) {
+            throw new NekoException("Missing index.");
+        }
+
+        try {
+            return Integer.parseInt(tokens[1].trim());
+        } catch (NumberFormatException e) {
+            throw new NekoException("Index must be a number.");
+        }
+    }
+
+    /**
+     * Returns the {@link Command} corresponding to the specified input type and tokens.
+     *
+     * @param type Resolved command type.
+     * @param tokens Tokenized user input.
+     * @return The constructed {@link Command}.
+     * @throws NekoException If the command cannot be parsed or constructed.
+     */
+    private static Command dispatchCommand(InputType type, String[] tokens)
+            throws NekoException {
+
+        switch (type) {
+        case TODO:
+            return parseTodo(tokens);
+        case DEADLINE:
+            return parseDeadline(tokens);
+        case EVENT:
+            return parseEvent(tokens);
+        case LIST:
+            return parseList();
+        case MARK:
+            return parseMark(parseIndex(tokens));
+        case UNMARK:
+            return parseUnmark(parseIndex(tokens));
+        case DELETE:
+            return parseDelete(parseIndex(tokens));
+        case BYE:
+            return parseBye();
+        case FIND:
+            return parseFind(parseKeyword(tokens));
+        default:
+            throw unknownCommandException();
+        }
+    }
+
+    /**
+     * Returns the keyword extracted from the tokenized input.
+     *
+     * @param tokens Tokenized user input where the second element is expected
+     *               to contain the keyword.
+     * @return The trimmed keyword string.
+     * @throws NekoException If the keyword is missing or empty.
+     */
+    private static String parseKeyword(String[] tokens) throws NekoException {
+        if (tokens.length < 2 || tokens[1].trim().isEmpty()) {
+            throw new NekoException("Meow! Keyword cannot be empty!");
+        }
+        return tokens[1].trim();
+    }
+
+    /**
+     * Returns a {@link NekoException} indicating an unknown command.
+     *
+     * @return A {@link NekoException} representing an unknown command error.
+     */
+    private static NekoException unknownCommandException() {
+        return new NekoException("""
+         I pawed at it, sniffed it, and… nope. (￣ω￣;)
+         I don’t know what that means.
+        """);
     }
 
     /**
