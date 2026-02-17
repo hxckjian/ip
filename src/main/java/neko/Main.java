@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private static final String FXML_PATH = "/view/MainWindow.fxml";
     private static final String DATA_FILE = "data/neko.txt";
+    private static final int MIN_HEIGHT = 220;
+    private static final int MIN_WIDTH = 417;
     // Creates a new Neko instance and save data into file path.
     private final Neko neko = new Neko(DATA_FILE);
 
@@ -23,6 +25,7 @@ public class Main extends Application {
             FXMLLoader loader = createLoader();
             AnchorPane root = loadRoot(loader);
             configureStage(stage, root);
+            configureWindowSize(stage);
             initializeController(loader);
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,5 +50,10 @@ public class Main extends Application {
         MainWindow controller = loader.getController();
         controller.setNeko(neko);
         controller.showGreetingBox();
+    }
+
+    private void configureWindowSize(Stage stage) {
+        stage.setMinHeight(MIN_HEIGHT);
+        stage.setMinWidth(MIN_WIDTH);
     }
 }
