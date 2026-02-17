@@ -263,14 +263,33 @@ public class Parser {
     }
 
     public static Command parseSnooze(String[] split) throws NekoException {
-        if (split.length == 1) {
-            throw new NekoException("Oops! The deadline's content can’t be empty,"
-                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+        if (split.length < 2 || split[1].trim().isEmpty()) {
+            throw new NekoException("Meow... Snooze needs an index and number of days!");
         }
 
-        String[] afterCommandArray = split[1].trim().split(" ");
-        int index = Integer.parseInt(afterCommandArray[0]);
-        int days = Integer.parseInt(afterCommandArray[1]);
+        String[] parts = split[1].trim().split("\\s+");
+
+        if (parts.length != 2) {
+            throw new NekoException("Meow... Use format: snooze <index> <days>.");
+        }
+
+        int index;
+        int days;
+
+        try {
+            index = Integer.parseInt(parts[0]);
+            days = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new NekoException("Meow... Index and days must be numbers!");
+        }
+
+        if (index <= 0) {
+            throw new NekoException("Meow... Index must be positive!");
+        }
+
+        if (days <= 0) {
+            throw new NekoException("Meow... Days must be positive!");
+        }
         return new SnoozeCommand(index, days);
     }
 

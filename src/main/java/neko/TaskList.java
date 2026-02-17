@@ -46,7 +46,10 @@ public class TaskList {
      *
      * @param inputIndex One-based index of the task to remove.
      */
-    public void removeTask(int inputIndex) {
+    public void removeTask(int inputIndex) throws NekoException {
+        if (inputIndex < 1 || inputIndex > this.taskArr.size()) {
+            throw new NekoException("Meow... That task index doesn't exist!");
+        }
         this.taskArr.remove(toZeroBasedIndex(inputIndex));
         assert inputIndex >= 1 && inputIndex <= this.getSize()
                 : "Invalid index in removeTask()";
@@ -57,8 +60,8 @@ public class TaskList {
      *
      * @param inputIndex One-based index of the task to mark.
      */
-    public void markTask(int inputIndex) {
-        this.taskArr.get(toZeroBasedIndex(inputIndex)).setDone();
+    public void markTask(int inputIndex) throws NekoException {
+        this.getTask(toZeroBasedIndex(inputIndex)).setDone();
     }
 
     /**
@@ -66,12 +69,12 @@ public class TaskList {
      *
      * @param inputIndex One-based index of the task to unmark.
      */
-    public void unmarkTask(int inputIndex) {
-        this.taskArr.get(toZeroBasedIndex(inputIndex)).setUnDone();
+    public void unmarkTask(int inputIndex) throws NekoException {
+        this.getTask(toZeroBasedIndex(inputIndex)).setUnDone();
     }
 
     public void snoozeTask(int inputIndex, int days) throws NekoException {
-        this.taskArr.get(toZeroBasedIndex(inputIndex)).snooze(days);
+        this.getTask(toZeroBasedIndex(inputIndex)).snooze(days);
     }
 
     /**
@@ -98,7 +101,10 @@ public class TaskList {
      * @param index Zero-based index of the task.
      * @return Task at the specified index.
      */
-    public Task getTask(int index) {
+    public Task getTask(int index) throws NekoException {
+        if (index < 0 || index >= this.taskArr.size()) {
+            throw new NekoException("Meow... That task index doesn't exist!");
+        }
         assert index >= 0 && index < this.getSize()
                 : "Index out of bounds in getTask()";
         return this.taskArr.get(index);
