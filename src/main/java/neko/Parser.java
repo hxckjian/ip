@@ -76,13 +76,13 @@ public class Parser {
      */
     private static int parseIndex(String[] tokens) throws NekoException {
         if (tokens.length < 2) {
-            throw new NekoException("Missing index.");
+            throw new NekoException("Nyaa… which task index?");
         }
 
         try {
             return Integer.parseInt(tokens[1].trim());
         } catch (NumberFormatException e) {
-            throw new NekoException("Index must be a number.");
+            throw new NekoException("Nyaa… the index must be a number.");
         }
     }
 
@@ -133,7 +133,7 @@ public class Parser {
      */
     private static String parseKeyword(String[] tokens) throws NekoException {
         if (tokens.length < 2 || tokens[1].trim().isEmpty()) {
-            throw new NekoException("Meow! Keyword cannot be empty!");
+            throw new NekoException("Nyaa… you forgot to give me a keyword.");
         }
         return tokens[1].trim();
     }
@@ -145,8 +145,8 @@ public class Parser {
      */
     private static NekoException unknownCommandException() {
         return new NekoException("""
-         I pawed at it, sniffed it, and… nope. (￣ω￣;)
-         I don’t know what that means.
+         Nyaa… I don’t recognize that command.
+         Try something I understand, okay?
         """);
     }
 
@@ -159,7 +159,10 @@ public class Parser {
      */
     public static Command parseTodo(String[] content) throws NekoException {
         if (content.length == 1) {
-            throw new NekoException("Oops! A todo's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… your todo has no description.
+             Tell me what you’d like to add.
+            """);
         }
         Task todo = new ToDo(content[1].trim());
         return new TodoCommand(todo);
@@ -174,24 +177,34 @@ public class Parser {
      */
     public static Command parseDeadline(String[] split) throws NekoException {
         if (split.length == 1) {
-            throw new NekoException("Oops! The deadline's content can’t be empty,"
-                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… your deadline needs a description.
+             Tell me what the task is.
+            """);
         }
 
         String[] afterCommandArray = split[1].trim().split(" ");
         int numBy = countNumDelimiter(afterCommandArray, "/by");
 
         if (numBy > 1) {
-            throw new NekoException("Oops! There's more than one deadline,"
-                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Hmm… I found more than one /by.
+             I only need one, nya.
+            """);
         } else if (numBy == 0) {
-            throw new NekoException("Oops! There's no deadline, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… where’s the /by?
+             I need a date to know the deadline.
+            """);
         } else if (afterCommandArray[0].equals("/by")) {
-            throw new NekoException("Oops! The deadline's content is not specified,"
-                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… you didn’t tell me what the task is.
+             Add a description before /by.
+            """);
         } else if (afterCommandArray[afterCommandArray.length - 1].equals("/by")) {
-            throw new NekoException("Oops! The deadline's /by is not specified,"
-                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… you forgot to give me the date after /by.
+            """);
         }
 
         String[] afterCommandSplitBy = split[1].trim().split("/by");
@@ -216,7 +229,10 @@ public class Parser {
      */
     public static Command parseEvent(String[] split) throws NekoException {
         if (split.length == 1) {
-            throw new NekoException("Oops! The event's content can’t be empty, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… your event needs a description.
+             Tell me what it is.
+            """);
         }
         String[] afterCommandArray = split[1].trim().split(" ");
         int numFrom = countNumDelimiter(afterCommandArray, "/from");
@@ -226,25 +242,37 @@ public class Parser {
         int indexTo = indexOfDelimiter(afterCommandArray, "/to");
 
         if (numFrom > 1) {
-            throw new NekoException("Oops! There's more than one /from, meow."
-                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Hmm… I see more than one /from.
+             I only need one, nya.
+            """);
         } else if (indexFrom == -1) {
-            throw new NekoException("Oops! There's no /from, meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… I need a /from to know when it starts.
+            """);
         } else if (numTo > 1) {
-            throw new NekoException("Oops! There's more than one /to,"
-                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Hmm… I see more than one /to.
+             I only need one, nya.
+            """);
         } else if (indexTo == -1) {
-            throw new NekoException("Oops! There's no /to, meow."
-                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… I need a /to to know when it ends.
+            """);
         } else if (afterCommandArray[0].equals("/from")) {
-            throw new NekoException("Oops! The event's content is not specified, meow."
-                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… your event needs a description.
+             Tell me what it is.
+            """);
         } else if (afterCommandArray[afterCommandArray.length - 1].equals("/to")) {
-            throw new NekoException("Oops! The event's /to content is not specified, meow."
-                    + " ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… you forgot to give me the date after /to.
+            """);
         } else if (indexFrom > indexTo) {
-            throw new NekoException("Oops! The deadline's /from is after /to,"
-                    + " meow. ╮(ᵕ—ᴗ—)╭\nTell me what is it!\n");
+            throw new NekoException("""
+             Nyaa… /from can’t come after /to.
+             The time flow must make sense.
+            """);
         }
         String[] splitFrom = split[1].split("/from");
         String description = splitFrom[0].trim();
@@ -252,6 +280,18 @@ public class Parser {
 
         String from = date[0].trim();
         String to = date[1].trim();
+
+        if (from.isEmpty()) {
+                throw new NekoException("""
+         Nyaa… you forgot to give me the date after /from.
+        """);
+            }
+
+            if (to.isEmpty()) {
+                throw new NekoException("""
+         Nyaa… you forgot to give me the date after /to.
+        """);
+        }
 
         LocalDate dateFrom = DateParser.parseTextIntoDate(from);
         LocalDate dateTo = DateParser.parseTextIntoDate(to);
@@ -264,13 +304,19 @@ public class Parser {
 
     public static Command parseSnooze(String[] split) throws NekoException {
         if (split.length < 2 || split[1].trim().isEmpty()) {
-            throw new NekoException("Meow... Snooze needs an index and number of days!");
+            throw new NekoException("""
+             Nyaa… snooze needs an index and number of days.
+             Try: snooze <index> <days>
+            """);
         }
 
         String[] parts = split[1].trim().split("\\s+");
 
         if (parts.length != 2) {
-            throw new NekoException("Meow... Use format: snooze <index> <days>.");
+            throw new NekoException("""
+             Nyaa… use this format:
+             snooze <index> <days>
+            """);
         }
 
         int index;
@@ -280,15 +326,15 @@ public class Parser {
             index = Integer.parseInt(parts[0]);
             days = Integer.parseInt(parts[1]);
         } catch (NumberFormatException e) {
-            throw new NekoException("Meow... Index and days must be numbers!");
+            throw new NekoException("Nyaa… both index and days must be numbers.");
         }
 
         if (index <= 0) {
-            throw new NekoException("Meow... Index must be positive!");
+            throw new NekoException("Nyaa… the index must be positive.");
         }
 
         if (days <= 0) {
-            throw new NekoException("Meow... Days must be positive!");
+            throw new NekoException("Nyaa… the number of days must be positive.");
         }
         return new SnoozeCommand(index, days);
     }

@@ -48,7 +48,7 @@ public class TaskList {
      */
     public void removeTask(int inputIndex) throws NekoException {
         if (inputIndex < 1 || inputIndex > this.taskArr.size()) {
-            throw new NekoException("Meow... That task index doesn't exist!");
+            throw new NekoException("Nya... That task index doesn't exist!");
         }
         assert inputIndex >= 1 && inputIndex <= this.getSize()
                 : "Invalid index in removeTask()";
@@ -103,7 +103,7 @@ public class TaskList {
      */
     public Task getTask(int index) throws NekoException {
         if (index < 0 || index >= this.taskArr.size()) {
-            throw new NekoException("Meow... That task index doesn't exist!");
+            throw new NekoException("Nya... That task index doesn't exist!");
         }
         assert index >= 0 && index < this.getSize()
                 : "Index out of bounds in getTask()";

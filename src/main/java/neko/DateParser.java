@@ -19,7 +19,7 @@ public class DateParser {
         try {
             return LocalDate.parse(text);
         } catch (DateTimeParseException e) {
-            throw new NekoException("What's that? Please input in yyyy-mm-dd format!");
+            throw new NekoException("Nya!? What's that? Please input in yyyy-mm-dd format!");
         }
     }
 }
