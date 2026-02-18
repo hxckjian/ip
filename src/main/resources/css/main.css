@@ -13,12 +13,12 @@
 
 .button {
     -fx-background-color: #ff9ca4;
-    -fx-font: italic bold 16px "Arial";
+    -fx-font: bold 20px "Brush Script MT";
 }
 
 .button:hover {
     -fx-background-color: #d5505a;
-    -fx-font-size: 18px;
+    -fx-font-size: 20px;
 }
 
 .button:pressed {
