@@ -27,9 +27,9 @@ public class MainWindow extends AnchorPane {
     private Neko neko;
 
     private Image userImage = new Image(this.getClass()
-            .getResourceAsStream("/images/normalsmileyandere.png"));
+            .getResourceAsStream("/images/main.png"));
     private Image nekoImage = new Image(this.getClass()
-            .getResourceAsStream("/images/normalsmileMC.png"));
+            .getResourceAsStream("/images/nekogirl.png"));
 
     @FXML
     public void initialize() {
