@@ -36,6 +36,13 @@ public class Parser {
      * @throws NekoException If the input is invalid or cannot be parsed.
      */
     public static Command parse(String input) throws NekoException {
+        if (input == null || input.trim().isEmpty()) {
+            throw new NekoException("""
+             Nyaa… you didn’t type anything.
+             Try giving me a command!
+            """);
+        }
+
         String[] tokens = tokenize(input);
         InputType type = resolveCommandType(tokens[0]);
         return dispatchCommand(type, tokens);
@@ -295,6 +302,14 @@ public class Parser {
 
         LocalDate dateFrom = DateParser.parseTextIntoDate(from);
         LocalDate dateTo = DateParser.parseTextIntoDate(to);
+
+        if (!dateFrom.isBefore(dateTo)) {
+            throw new NekoException("""
+             Nyaa… the event must end after it starts.
+             Time can’t flow backwards!
+            """);
+        }
+
 
         // Add event
         Task event = new Event(description, dateFrom, dateTo);
