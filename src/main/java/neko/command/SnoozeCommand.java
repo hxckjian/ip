@@ -42,6 +42,6 @@ public class SnoozeCommand extends Command {
         tasks.snoozeTask(index, days);
         int zeroIndex = tasks.toZeroBasedIndex(index);
         Task task = tasks.getTask(zeroIndex);
-        return "I have snoozed this task:\n  " + task;
+        return "Nya! I have snoozed this task:\n  " + task;
     }
 }

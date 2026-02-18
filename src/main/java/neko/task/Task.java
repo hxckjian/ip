@@ -70,7 +70,7 @@ public class Task {
      * @throws NekoException If the task type does not support snoozing.
      */
     public void snooze(int days) throws NekoException {
-        throw new NekoException("This task cannot be snoozed.");
+        throw new NekoException("Nya... This task cannot be snoozed.");
     }
 
     /**
