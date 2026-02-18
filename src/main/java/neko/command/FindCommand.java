@@ -17,6 +17,13 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws NekoException {
-        return ui.showKeywordList(tasks.find(this.keyword));
+        String result = tasks.find(keyword);
+
+        if (result.isEmpty()) {
+            return ui.showMessage(
+                    "Nyaa… I couldn’t find any tasks matching \"" + keyword + "\"."
+            );
+        }
+        return ui.showKeywordList(result);
     }
 }
