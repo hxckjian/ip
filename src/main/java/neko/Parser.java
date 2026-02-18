@@ -289,13 +289,13 @@ public class Parser {
         String to = date[1].trim();
 
         if (from.isEmpty()) {
-                throw new NekoException("""
+            throw new NekoException("""
          Nyaa… you forgot to give me the date after /from.
         """);
-            }
+        }
 
-            if (to.isEmpty()) {
-                throw new NekoException("""
+        if (to.isEmpty()) {
+            throw new NekoException("""
          Nyaa… you forgot to give me the date after /to.
         """);
         }
@@ -317,6 +317,14 @@ public class Parser {
         return new EventCommand(event);
     }
 
+    /**
+     * Returns a SnoozeCommand parsed from the given user input tokens.
+     *
+     * @param split Array containing the command keyword and its arguments.
+     * @return A SnoozeCommand with the specified task index and number of days.
+     * @throws NekoException If the format is invalid, if the index or days
+     *                       are missing, non-numeric, or not positive.
+     */
     public static Command parseSnooze(String[] split) throws NekoException {
         if (split.length < 2 || split[1].trim().isEmpty()) {
             throw new NekoException("""
