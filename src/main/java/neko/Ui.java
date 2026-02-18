@@ -15,8 +15,8 @@ public class Ui {
     public String showGreetingMessage() {
         String message = """
                    /\\_/\\
-                  ( o.o )  Hello! I'm Neko.
-                   > ^ <   I'm here to listen — what can I do for you?
+                  ( o.o )  Hello! I'm Neko nya!.
+                   > ^ <   Tell me what’s on your mind today?
                    """;
         return message;
     }
@@ -26,7 +26,7 @@ public class Ui {
      */
     public String showEndMessage() {
         String endMessage = """
-                 Bye! I'm curling up for a nap now.
+                 Aww… leaving already? I’ll be here when you’re back, nya~
                  ⠀⠀⠀⠀⢀⡴⣄⠀⠀⠀⠀⢠⣄⠀⠀⠀⠀⠀⠀⠀⣼⣿⡟⠃
                  ⠀⠀⠀⣰⠋⠀⠈⠓⠒⠒⠒⠚⠈⢳⡄⠀⠀⠀⠀⠀⣿⣿
                  ⠀⠀⣼⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣤⣤⣤⣤⣤⣿⣿⣄
@@ -47,9 +47,9 @@ public class Ui {
      */
     public String printListMessage(String list) throws NekoException {
         if (list.isEmpty()) {
-            throw new NekoException("The list is empty!");
+            throw new NekoException("Nya!? The list is empty!");
         }
-        return showMessage("Here are the tasks in your list:",
+        return showMessage("Here are the tasks in your list nya!",
                     list);
     }
 
@@ -60,11 +60,11 @@ public class Ui {
      * @param length Total number of tasks after addition.
      */
     public String showAddMessage(Task task, int length) {
-        return showMessage("I have added this task:",
+        return showMessage("Hehe~ I added this for you:",
                 task.toString(),
                 "Now you have "
                 + length
-                + " tasks in the list.");
+                + " tasks in the list, nya.");
     }
 
     /**
@@ -73,7 +73,7 @@ public class Ui {
      * @param task Task that was marked as done.
      */
     public String showMarkedTask(Task task) {
-        return showMessage("Nice! I've marked this task as done:",
+        return showMessage("Good job! I marked this as done, nya~",
                 task.toString());
     }
 
@@ -83,7 +83,7 @@ public class Ui {
      * @param task Task that was unmarked.
      */
     public String showUnmarkedTask(Task task) {
-        return showMessage("OK, I've marked this task as not done yet:",
+        return showMessage("Hmm~ not done yet? I unmarked it for you.",
                 task.toString());
     }
 
@@ -105,7 +105,7 @@ public class Ui {
      * @param message Content of error message.
      */
     public String showError(String message) {
-        return "OOPS!!! " + message;
+        return message;
     }
 
     /**
@@ -115,7 +115,7 @@ public class Ui {
      * @return Message containing the matching tasks.
      */
     public String showKeywordList(String list) {
-        return showMessage("I found them! Here are the matching tasks in your list:",
+        return showMessage("I found them nya! Here are the matching tasks in your list:",
                 list);
     }
 
