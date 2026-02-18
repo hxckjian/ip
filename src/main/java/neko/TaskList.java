@@ -50,9 +50,9 @@ public class TaskList {
         if (inputIndex < 1 || inputIndex > this.taskArr.size()) {
             throw new NekoException("Meow... That task index doesn't exist!");
         }
-        this.taskArr.remove(toZeroBasedIndex(inputIndex));
         assert inputIndex >= 1 && inputIndex <= this.getSize()
                 : "Invalid index in removeTask()";
+        this.taskArr.remove(toZeroBasedIndex(inputIndex));
     }
 
     /**
