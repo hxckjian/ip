@@ -4,4 +4,4 @@ T | 1 | kill sukuna
 D | 1 | destroy 20 fingers | 2022-05-10
 D | 1 | Test Date | 2026-01-15
 E | 0 | test | 2022-10-12 | 2022-10-22
-D | 0 | lolol | 2001-03-28
+D | 1 | lolol | 2001-03-28
