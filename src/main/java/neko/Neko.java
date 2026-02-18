@@ -51,7 +51,7 @@ public class Neko {
         } catch (NekoException e) {
             return ui.showError(e.getMessage());
         } catch (Exception e) {
-            return ui.showError("Meow... Something unexpected happened. " + e.getMessage());
+            return ui.showError("Nya... Something unexpected happened. " + e.getMessage());
         }
     }
 
