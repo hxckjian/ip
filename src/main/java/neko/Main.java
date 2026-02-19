@@ -22,6 +22,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Neko 🐾");
             FXMLLoader loader = createLoader();
             AnchorPane root = loadRoot(loader);
             configureStage(stage, root);
