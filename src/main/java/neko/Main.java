@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private static final String FXML_PATH = "/view/MainWindow.fxml";
-    private static final String DATA_FILE = "data/neko.txt";
+    private static final String DATA_FILE = "neko.txt";
     private static final int MIN_HEIGHT = 220;
     private static final int MIN_WIDTH = 417;
     // Creates a new Neko instance and save data into file path.

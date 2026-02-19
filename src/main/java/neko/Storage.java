@@ -18,7 +18,7 @@ import neko.task.ToDo;
  * Handles loading and saving of task data to persistent storage.
  */
 public class Storage {
-    private static final String BASE_DIRECTORY = "src/main/";
+    private static final String BASE_DIRECTORY = "data/";
     private static final String DATA_DELIMITER = " \\| ";
     private String filepath;
 
@@ -50,8 +50,14 @@ public class Storage {
 
             String line;
             while ((line = br.readLine()) != null) {
-                tasks.add(parseLine(line));
+                try {
+                    tasks.add(parseLine(line));
+                } catch (Exception e) {
+                    // Skip corrupted line and continue loading
+                    System.err.println("Nya! Skipping corrupted line: " + line);
+                }
             }
+
 
         } catch (IOException e) {
             throw new NekoException("An I/O error occurred nya!");
