@@ -1,8 +1,46 @@
 # Neko User Guide 🐾
 
+Neko is your little digital companion that keeps track of your tasks so nothing slips through your paws. Simple, fast, and always reliable.
+
+- [Quick start](#quick-start)
+- [Features](#features)
+  - [Adding a todo : `todo`](#adding-a-todo--todo-description)
+  - [Adding a deadline : `deadline`](#adding-a-deadline--deadline-description-by-yyyy-mm-dd)
+  - [Adding an event : `event`](#adding-an-event--event-description-from-yyyy-mm-dd-to-yyyy-mm-dd)
+  - [Listing all tasks : `list`](#listing-all-tasks--list)
+  - [Marking a task : `mark`](#marking-a-task-mark-index)
+  - [Unmarking a task : `unmark`](#unmarking-a-task-unmark-index)
+  - [Deleting a task : `delete`](#deleting-a-task-delete-index)
+  - [Finding tasks : `find`](#finding-tasks-find-keyword)
+  - [Snoozing a deadline or event : `snooze`](#snoozing-a-deadline-or-event-snooze-index-days)
+  - [Exiting the program : `bye`](#exiting-the-program-bye)
+- [Saving the data](#saving-the-data)
+- [Editing the data file](#editing-the-data-file)
+- [Command summary](#command-summary)
+
+
+## Quick start
+1. Ensure you have `Java 17` or above installed in your Computer.<br>Mac users: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+
+2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+
+3. Copy the file to the folder you want to use as the home folder for your Neko Task Manager.
+
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar neko.jar` command to run the application.<br>A GUI similar to the below should appear in a few seconds.
 ![Screenshot of the app](Ui.png)
 
-Neko is your little digital companion that keeps track of your tasks so nothing slips through your paws. Simple, fast, and always reliable.
+5. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list all the contacts you saved.
+Some example commands you can try:
+
+- `list` : Lists all contacts.
+
+- `todo read book` : Adds a new read book todo task to the list.
+
+- `delete 3` : Deletes the 3rd contact shown in the current list.
+
+- `bye` : Exits the app.
+
+6. Refer to the Features below for details of each command.
 
 ---
 # Features
@@ -141,6 +179,12 @@ Aww… leaving already? I’ll be here when you’re back, nya~
 ```
 
 ---
+
+# Saving the data
+Neko Task Manager data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+# Editing the data file
+Neko Task Manager data are saved automatically as a JSON file `[JAR file location]/data/neko.txt`. Advanced users are welcome to update data directly by editing that data file.
 
 # Command summary
 | Action | Format |
