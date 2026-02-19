@@ -1,6 +1,6 @@
 # Neko User Guide 🐾
 
-![Screenshot of the app](UI.png)
+![Screenshot of the app](Ui.png)
 
 Neko is your little digital companion that keeps track of your tasks so nothing slips through your paws. Simple, fast, and always reliable.
 
