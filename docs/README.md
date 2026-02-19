@@ -22,7 +22,7 @@ Neko is your little digital companion that keeps track of your tasks so nothing 
 ## Quick start
 1. Ensure you have `Java 17` or above installed in your Computer.<br>Mac users: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `.jar` file from [here](https://github.com/hxckjian/ip/releases/tag/A-Release).
 
 3. Copy the file to the folder you want to use as the home folder for your Neko Task Manager.
 
