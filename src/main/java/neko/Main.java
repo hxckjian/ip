@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private static final String FXML_PATH = "/view/MainWindow.fxml";
     private static final String DATA_FILE = "neko.txt";
+    private static final String FONT_PATH = "/fonts/BRUSHSCI.TTF";
     private static final int MIN_HEIGHT = 220;
     private static final int MIN_WIDTH = 417;
     // Creates a new Neko instance and save data into file path.
@@ -22,7 +24,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            stage.setTitle("Neko 🐾");
+            stage.setTitle("Neko");
+
+            // Register custom font
+            Font.loadFont(
+                    Main.class.getResource(FONT_PATH).toExternalForm(),
+                    20
+            );
+
             FXMLLoader loader = createLoader();
             AnchorPane root = loadRoot(loader);
             configureStage(stage, root);
