@@ -19,7 +19,7 @@
 
 .button {
     -fx-background-color: #ff9ca4;
-    -fx-font: bold 20px "Brush Script MT";
+    -fx-font: bold 18px "Brush Script MT";
     -fx-background-radius: 20 20 20 20;
     -fx-border-radius: 20 20 20 20;
     -fx-text-fill: #50060c;
@@ -27,7 +27,7 @@
 
 .button:hover {
     -fx-background-color: #d5505a;
-    -fx-font-size: 20px;
+    -fx-font-size: 18px;
 }
 
 .button:pressed {
